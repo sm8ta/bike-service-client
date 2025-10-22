@@ -3,7 +3,7 @@ package prometheus
 import (
 	"fmt"
 	"time"
-	"webike_bike_microservice_nikita/internal/core/ports"
+	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/ports"
 
 	"github.com/gin-gonic/gin"
 	"github.com/prometheus/client_golang/prometheus"

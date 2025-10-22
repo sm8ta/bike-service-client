@@ -3,9 +3,9 @@ package http
 import (
 	"net/http"
 	"time"
-	"webike_bike_microservice_nikita/internal/core/domain"
-	"webike_bike_microservice_nikita/internal/core/ports"
-	"webike_bike_microservice_nikita/internal/core/services"
+	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/domain"
+	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/ports"
+	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/services"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"

@@ -2,8 +2,8 @@ package http
 
 import (
 	"net/http"
-	"webike_bike_microservice_nikita/internal/config"
-	"webike_bike_microservice_nikita/internal/core/ports"
+	"github.com/sm8ta/webike_bike_microservice_nikita/internal/config"
+	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/ports"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"

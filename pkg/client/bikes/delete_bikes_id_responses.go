@@ -14,7 +14,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"webike_bike_microservice_nikita/models"
+	"github.com/sm8ta/webike_bike_microservice_nikita/models"
 )
 
 // DeleteBikesIDReader is a Reader for the DeleteBikesID structure.

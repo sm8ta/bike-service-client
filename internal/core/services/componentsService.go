@@ -3,8 +3,8 @@ package services
 import (
 	"context"
 	"fmt"
-	"webike_bike_microservice_nikita/internal/core/domain"
-	"webike_bike_microservice_nikita/internal/core/ports"
+	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/domain"
+	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/ports"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/google/uuid"

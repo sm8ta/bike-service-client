@@ -15,7 +15,7 @@ import (
 	cr "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"webike_bike_microservice_nikita/models"
+	"github.com/sm8ta/webike_bike_microservice_nikita/models"
 )
 
 // NewPutBikesIDParams creates a new PutBikesIDParams object,

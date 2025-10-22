@@ -1,4 +1,4 @@
-module webike_bike_microservice_nikita
+module github.com/sm8ta/webike_bike_microservice_nikita
 
 go 1.24.4
 

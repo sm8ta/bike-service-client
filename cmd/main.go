@@ -7,8 +7,8 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
-	"webike_bike_microservice_nikita/internal/app"
-	"webike_bike_microservice_nikita/internal/config"
+	"github.com/sm8ta/webike_bike_microservice_nikita/internal/app"
+	"github.com/sm8ta/webike_bike_microservice_nikita/internal/config"
 
 	_ "github.com/lib/pq"
 )

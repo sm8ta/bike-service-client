@@ -2,8 +2,8 @@ package http
 
 import (
 	"errors"
-	"webike_bike_microservice_nikita/internal/core/domain"
-	"webike_bike_microservice_nikita/internal/core/ports"
+	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/domain"
+	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/ports"
 
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"

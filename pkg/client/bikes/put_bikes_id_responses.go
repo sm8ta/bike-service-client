@@ -17,7 +17,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"webike_bike_microservice_nikita/models"
+	"github.com/sm8ta/webike_bike_microservice_nikita/models"
 )
 
 // PutBikesIDReader is a Reader for the PutBikesID structure.

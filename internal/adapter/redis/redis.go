@@ -3,7 +3,7 @@ package redis
 import (
 	"context"
 	"time"
-	"webike_bike_microservice_nikita/internal/core/ports"
+	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/ports"
 
 	"github.com/redis/go-redis/v9"
 )

@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"webike_bike_microservice_nikita/internal/core/domain"
+	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/domain"
 
 	"github.com/google/uuid"
 	"github.com/lib/pq"
