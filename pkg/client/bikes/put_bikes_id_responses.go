@@ -6,16 +6,13 @@ package bikes
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"encoding/json"
 	stderrors "errors"
 	"fmt"
 	"io"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
 	"github.com/sm8ta/webike_bike_microservice_nikita/models"
 )
@@ -68,7 +65,7 @@ PutBikesIDOK describes a response with status code 200, with default header valu
 Байк обновлен
 */
 type PutBikesIDOK struct {
-	Payload *PutBikesIDOKBody
+	Payload *models.HTTPSuccessResponse
 }
 
 // IsSuccess returns true when this put bikes Id o k response has a 2xx status code
@@ -111,13 +108,13 @@ func (o *PutBikesIDOK) String() string {
 	return fmt.Sprintf("[PUT /bikes/{id}][%d] putBikesIdOK %s", 200, payload)
 }
 
-func (o *PutBikesIDOK) GetPayload() *PutBikesIDOKBody {
+func (o *PutBikesIDOK) GetPayload() *models.HTTPSuccessResponse {
 	return o.Payload
 }
 
 func (o *PutBikesIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(PutBikesIDOKBody)
+	o.Payload = new(models.HTTPSuccessResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
@@ -334,166 +331,5 @@ func (o *PutBikesIDForbidden) readResponse(response runtime.ClientResponse, cons
 		return err
 	}
 
-	return nil
-}
-
-/*
-PutBikesIDOKBody put bikes ID o k body
-swagger:model PutBikesIDOKBody
-*/
-type PutBikesIDOKBody struct {
-	models.HTTPSuccessResponse
-
-	// data
-	Data *models.DomainBike `json:"data,omitempty"`
-}
-
-// UnmarshalJSON unmarshals this object from a JSON structure
-func (o *PutBikesIDOKBody) UnmarshalJSON(raw []byte) error {
-	// PutBikesIDOKBodyAO0
-	var putBikesIDOKBodyAO0 models.HTTPSuccessResponse
-	if err := swag.ReadJSON(raw, &putBikesIDOKBodyAO0); err != nil {
-		return err
-	}
-	o.HTTPSuccessResponse = putBikesIDOKBodyAO0
-
-	// PutBikesIDOKBodyAO1
-	var dataPutBikesIDOKBodyAO1 struct {
-		Data *models.DomainBike `json:"data,omitempty"`
-	}
-	if err := swag.ReadJSON(raw, &dataPutBikesIDOKBodyAO1); err != nil {
-		return err
-	}
-
-	o.Data = dataPutBikesIDOKBodyAO1.Data
-
-	return nil
-}
-
-// MarshalJSON marshals this object to a JSON structure
-func (o PutBikesIDOKBody) MarshalJSON() ([]byte, error) {
-	_parts := make([][]byte, 0, 2)
-
-	putBikesIDOKBodyAO0, err := swag.WriteJSON(o.HTTPSuccessResponse)
-	if err != nil {
-		return nil, err
-	}
-	_parts = append(_parts, putBikesIDOKBodyAO0)
-	var dataPutBikesIDOKBodyAO1 struct {
-		Data *models.DomainBike `json:"data,omitempty"`
-	}
-
-	dataPutBikesIDOKBodyAO1.Data = o.Data
-
-	jsonDataPutBikesIDOKBodyAO1, errPutBikesIDOKBodyAO1 := swag.WriteJSON(dataPutBikesIDOKBodyAO1)
-	if errPutBikesIDOKBodyAO1 != nil {
-		return nil, errPutBikesIDOKBodyAO1
-	}
-	_parts = append(_parts, jsonDataPutBikesIDOKBodyAO1)
-	return swag.ConcatJSON(_parts...), nil
-}
-
-// Validate validates this put bikes ID o k body
-func (o *PutBikesIDOKBody) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	// validation for a type composition with models.HTTPSuccessResponse
-	if err := o.HTTPSuccessResponse.Validate(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.validateData(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *PutBikesIDOKBody) validateData(formats strfmt.Registry) error {
-
-	if swag.IsZero(o.Data) { // not required
-		return nil
-	}
-
-	if o.Data != nil {
-		if err := o.Data.Validate(formats); err != nil {
-			ve := new(errors.Validation)
-			if stderrors.As(err, &ve) {
-				return ve.ValidateName("putBikesIdOK" + "." + "data")
-			}
-			ce := new(errors.CompositeError)
-			if stderrors.As(err, &ce) {
-				return ce.ValidateName("putBikesIdOK" + "." + "data")
-			}
-
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this put bikes ID o k body based on the context it is used
-func (o *PutBikesIDOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	// validation for a type composition with models.HTTPSuccessResponse
-	if err := o.HTTPSuccessResponse.ContextValidate(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.contextValidateData(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *PutBikesIDOKBody) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
-
-	if o.Data != nil {
-
-		if swag.IsZero(o.Data) { // not required
-			return nil
-		}
-
-		if err := o.Data.ContextValidate(ctx, formats); err != nil {
-			ve := new(errors.Validation)
-			if stderrors.As(err, &ve) {
-				return ve.ValidateName("putBikesIdOK" + "." + "data")
-			}
-			ce := new(errors.CompositeError)
-			if stderrors.As(err, &ce) {
-				return ce.ValidateName("putBikesIdOK" + "." + "data")
-			}
-
-			return err
-		}
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *PutBikesIDOKBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *PutBikesIDOKBody) UnmarshalBinary(b []byte) error {
-	var res PutBikesIDOKBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

@@ -8,11 +8,12 @@ import (
 
 type (
 	Container struct {
-		App   *App
-		Token *Token
-		DB    *DB
-		HTTP  *HTTP
-		Redis *Redis
+		App         *App
+		Token       *Token
+		DB          *DB
+		HTTP        *HTTP
+		Redis       *Redis
+		UserService *UserService
 	}
 
 	App struct {
@@ -43,6 +44,10 @@ type (
 	Redis struct {
 		Address  string
 		Password string
+	}
+
+	UserService struct {
+		URL string
 	}
 )
 
@@ -84,11 +89,16 @@ func New() (*Container, error) {
 		Password: os.Getenv("REDIS_PASSWORD"),
 	}
 
+	userService := &UserService{
+		URL: os.Getenv("USER_SERVICE_URL"),
+	}
+
 	return &Container{
-		App:   app,
-		Token: token,
-		DB:    db,
-		HTTP:  http,
-		Redis: redis,
+		App:         app,
+		Token:       token,
+		DB:          db,
+		HTTP:        http,
+		Redis:       redis,
+		UserService: userService,
 	}, nil
 }

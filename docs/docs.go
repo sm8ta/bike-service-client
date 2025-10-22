@@ -48,19 +48,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Байк создан",
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/http.successResponse"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/domain.Bike"
-                                        }
-                                    }
-                                }
-                            ]
+                            "$ref": "#/definitions/http.successResponse"
                         }
                     },
                     "400": {
@@ -100,22 +88,7 @@ const docTemplate = `{
                     "200": {
                         "description": "Список байков пользователя",
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/http.successResponse"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/definitions/domain.Bike"
-                                            }
-                                        }
-                                    }
-                                }
-                            ]
+                            "$ref": "#/definitions/http.successResponse"
                         }
                     },
                     "401": {
@@ -164,19 +137,7 @@ const docTemplate = `{
                     "200": {
                         "description": "Байк найден",
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/http.successResponse"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/domain.Bike"
-                                        }
-                                    }
-                                }
-                            ]
+                            "$ref": "#/definitions/http.successResponse"
                         }
                     },
                     "401": {
@@ -238,19 +199,7 @@ const docTemplate = `{
                     "200": {
                         "description": "Байк обновлен",
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/http.successResponse"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/domain.Bike"
-                                        }
-                                    }
-                                }
-                            ]
+                            "$ref": "#/definitions/http.successResponse"
                         }
                     },
                     "400": {
@@ -352,19 +301,7 @@ const docTemplate = `{
                     "200": {
                         "description": "Байк с компонентами",
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/http.successResponse"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/domain.Bike"
-                                        }
-                                    }
-                                }
-                            ]
+                            "$ref": "#/definitions/http.successResponse"
                         }
                     },
                     "401": {
@@ -413,19 +350,7 @@ const docTemplate = `{
                     "200": {
                         "description": "Байк с пользователем",
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/http.successResponse"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/http.BikeWithUserResponse"
-                                        }
-                                    }
-                                }
-                            ]
+                            "$ref": "#/definitions/http.successResponse"
                         }
                     },
                     "401": {
@@ -666,126 +591,6 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "domain.Bike": {
-            "type": "object",
-            "properties": {
-                "bike_id": {
-                    "type": "string"
-                },
-                "bike_name": {
-                    "type": "string"
-                },
-                "components": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/domain.Component"
-                    }
-                },
-                "created_at": {
-                    "type": "string"
-                },
-                "mileage": {
-                    "type": "integer"
-                },
-                "model": {
-                    "description": "stels",
-                    "type": "string"
-                },
-                "type": {
-                    "$ref": "#/definitions/domain.BikeType"
-                },
-                "updated_at": {
-                    "type": "string"
-                },
-                "user_id": {
-                    "type": "string"
-                },
-                "year": {
-                    "type": "integer"
-                }
-            }
-        },
-        "domain.BikeType": {
-            "type": "string",
-            "enum": [
-                "bmx",
-                "mtb",
-                "road"
-            ],
-            "x-enum-varnames": [
-                "BMX",
-                "MTB",
-                "Road"
-            ]
-        },
-        "domain.Component": {
-            "type": "object",
-            "required": [
-                "bike_id",
-                "installed_at",
-                "max_mileage",
-                "name"
-            ],
-            "properties": {
-                "bike_id": {
-                    "type": "string"
-                },
-                "brand": {
-                    "type": "string",
-                    "maxLength": 100
-                },
-                "created_at": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "installed_at": {
-                    "type": "string"
-                },
-                "installed_mileage": {
-                    "type": "integer",
-                    "minimum": 0
-                },
-                "max_mileage": {
-                    "type": "integer",
-                    "maximum": 1000000,
-                    "minimum": 1
-                },
-                "model": {
-                    "type": "string",
-                    "maxLength": 100
-                },
-                "name": {
-                    "enum": [
-                        "handlebars",
-                        "frame",
-                        "wheels"
-                    ],
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/domain.ComponentName"
-                        }
-                    ]
-                },
-                "updated_at": {
-                    "type": "string"
-                }
-            }
-        },
-        "domain.ComponentName": {
-            "type": "string",
-            "enum": [
-                "handlebars",
-                "frame",
-                "wheels"
-            ],
-            "x-enum-varnames": [
-                "Handlebars",
-                "Frame",
-                "Wheels"
-            ]
-        },
         "http.BikeRequest": {
             "type": "object",
             "required": [
@@ -805,26 +610,6 @@ const docTemplate = `{
                 "type": {
                     "type": "string",
                     "example": "mountain"
-                }
-            }
-        },
-        "http.BikeWithUserResponse": {
-            "type": "object",
-            "properties": {
-                "bike_id": {
-                    "type": "string",
-                    "example": "123e4567-e89b-12d3-a456-426614174000"
-                },
-                "mileage": {
-                    "type": "integer",
-                    "example": 1500
-                },
-                "model": {
-                    "type": "string",
-                    "example": "Mountain Bike Pro"
-                },
-                "user": {
-                    "$ref": "#/definitions/http.User"
                 }
             }
         },
@@ -902,19 +687,6 @@ const docTemplate = `{
                 "name": {
                     "type": "string",
                     "example": "handlebars"
-                }
-            }
-        },
-        "http.User": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "example": "Иван Иванов"
-                },
-                "user_id": {
-                    "type": "string",
-                    "example": "123e4567-e89b-12d3-a456-426614174000"
                 }
             }
         },
