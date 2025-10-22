@@ -6,16 +6,13 @@ package components
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"encoding/json"
 	stderrors "errors"
 	"fmt"
 	"io"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
 	"github.com/sm8ta/webike_bike_microservice_nikita/models"
 )
@@ -68,7 +65,7 @@ PutComponentsIDOK describes a response with status code 200, with default header
 Компонент обновлен
 */
 type PutComponentsIDOK struct {
-	Payload *PutComponentsIDOKBody
+	Payload *models.HTTPSuccessResponse
 }
 
 // IsSuccess returns true when this put components Id o k response has a 2xx status code
@@ -111,13 +108,13 @@ func (o *PutComponentsIDOK) String() string {
 	return fmt.Sprintf("[PUT /components/{id}][%d] putComponentsIdOK %s", 200, payload)
 }
 
-func (o *PutComponentsIDOK) GetPayload() *PutComponentsIDOKBody {
+func (o *PutComponentsIDOK) GetPayload() *models.HTTPSuccessResponse {
 	return o.Payload
 }
 
 func (o *PutComponentsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(PutComponentsIDOKBody)
+	o.Payload = new(models.HTTPSuccessResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
@@ -138,7 +135,7 @@ PutComponentsIDBadRequest describes a response with status code 400, with defaul
 Неверный запрос
 */
 type PutComponentsIDBadRequest struct {
-	Payload *models.InternalAdapterHandlerHTTPErrorResponse
+	Payload *models.HTTPErrorResponse
 }
 
 // IsSuccess returns true when this put components Id bad request response has a 2xx status code
@@ -181,13 +178,13 @@ func (o *PutComponentsIDBadRequest) String() string {
 	return fmt.Sprintf("[PUT /components/{id}][%d] putComponentsIdBadRequest %s", 400, payload)
 }
 
-func (o *PutComponentsIDBadRequest) GetPayload() *models.InternalAdapterHandlerHTTPErrorResponse {
+func (o *PutComponentsIDBadRequest) GetPayload() *models.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *PutComponentsIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.InternalAdapterHandlerHTTPErrorResponse)
+	o.Payload = new(models.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
@@ -208,7 +205,7 @@ PutComponentsIDUnauthorized describes a response with status code 401, with defa
 Не авторизован
 */
 type PutComponentsIDUnauthorized struct {
-	Payload *models.InternalAdapterHandlerHTTPErrorResponse
+	Payload *models.HTTPErrorResponse
 }
 
 // IsSuccess returns true when this put components Id unauthorized response has a 2xx status code
@@ -251,13 +248,13 @@ func (o *PutComponentsIDUnauthorized) String() string {
 	return fmt.Sprintf("[PUT /components/{id}][%d] putComponentsIdUnauthorized %s", 401, payload)
 }
 
-func (o *PutComponentsIDUnauthorized) GetPayload() *models.InternalAdapterHandlerHTTPErrorResponse {
+func (o *PutComponentsIDUnauthorized) GetPayload() *models.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *PutComponentsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.InternalAdapterHandlerHTTPErrorResponse)
+	o.Payload = new(models.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
@@ -278,7 +275,7 @@ PutComponentsIDForbidden describes a response with status code 403, with default
 Доступ запрещен
 */
 type PutComponentsIDForbidden struct {
-	Payload *models.InternalAdapterHandlerHTTPErrorResponse
+	Payload *models.HTTPErrorResponse
 }
 
 // IsSuccess returns true when this put components Id forbidden response has a 2xx status code
@@ -321,179 +318,18 @@ func (o *PutComponentsIDForbidden) String() string {
 	return fmt.Sprintf("[PUT /components/{id}][%d] putComponentsIdForbidden %s", 403, payload)
 }
 
-func (o *PutComponentsIDForbidden) GetPayload() *models.InternalAdapterHandlerHTTPErrorResponse {
+func (o *PutComponentsIDForbidden) GetPayload() *models.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *PutComponentsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.InternalAdapterHandlerHTTPErrorResponse)
+	o.Payload = new(models.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
 		return err
 	}
 
-	return nil
-}
-
-/*
-PutComponentsIDOKBody put components ID o k body
-swagger:model PutComponentsIDOKBody
-*/
-type PutComponentsIDOKBody struct {
-	models.InternalAdapterHandlerHTTPSuccessResponse
-
-	// data
-	Data *models.WebikeBikeMicroserviceNikitaInternalCoreDomainComponent `json:"data,omitempty"`
-}
-
-// UnmarshalJSON unmarshals this object from a JSON structure
-func (o *PutComponentsIDOKBody) UnmarshalJSON(raw []byte) error {
-	// PutComponentsIDOKBodyAO0
-	var putComponentsIDOKBodyAO0 models.InternalAdapterHandlerHTTPSuccessResponse
-	if err := swag.ReadJSON(raw, &putComponentsIDOKBodyAO0); err != nil {
-		return err
-	}
-	o.InternalAdapterHandlerHTTPSuccessResponse = putComponentsIDOKBodyAO0
-
-	// PutComponentsIDOKBodyAO1
-	var dataPutComponentsIDOKBodyAO1 struct {
-		Data *models.WebikeBikeMicroserviceNikitaInternalCoreDomainComponent `json:"data,omitempty"`
-	}
-	if err := swag.ReadJSON(raw, &dataPutComponentsIDOKBodyAO1); err != nil {
-		return err
-	}
-
-	o.Data = dataPutComponentsIDOKBodyAO1.Data
-
-	return nil
-}
-
-// MarshalJSON marshals this object to a JSON structure
-func (o PutComponentsIDOKBody) MarshalJSON() ([]byte, error) {
-	_parts := make([][]byte, 0, 2)
-
-	putComponentsIDOKBodyAO0, err := swag.WriteJSON(o.InternalAdapterHandlerHTTPSuccessResponse)
-	if err != nil {
-		return nil, err
-	}
-	_parts = append(_parts, putComponentsIDOKBodyAO0)
-	var dataPutComponentsIDOKBodyAO1 struct {
-		Data *models.WebikeBikeMicroserviceNikitaInternalCoreDomainComponent `json:"data,omitempty"`
-	}
-
-	dataPutComponentsIDOKBodyAO1.Data = o.Data
-
-	jsonDataPutComponentsIDOKBodyAO1, errPutComponentsIDOKBodyAO1 := swag.WriteJSON(dataPutComponentsIDOKBodyAO1)
-	if errPutComponentsIDOKBodyAO1 != nil {
-		return nil, errPutComponentsIDOKBodyAO1
-	}
-	_parts = append(_parts, jsonDataPutComponentsIDOKBodyAO1)
-	return swag.ConcatJSON(_parts...), nil
-}
-
-// Validate validates this put components ID o k body
-func (o *PutComponentsIDOKBody) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	// validation for a type composition with models.InternalAdapterHandlerHTTPSuccessResponse
-	if err := o.InternalAdapterHandlerHTTPSuccessResponse.Validate(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.validateData(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *PutComponentsIDOKBody) validateData(formats strfmt.Registry) error {
-
-	if swag.IsZero(o.Data) { // not required
-		return nil
-	}
-
-	if o.Data != nil {
-		if err := o.Data.Validate(formats); err != nil {
-			ve := new(errors.Validation)
-			if stderrors.As(err, &ve) {
-				return ve.ValidateName("putComponentsIdOK" + "." + "data")
-			}
-			ce := new(errors.CompositeError)
-			if stderrors.As(err, &ce) {
-				return ce.ValidateName("putComponentsIdOK" + "." + "data")
-			}
-
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this put components ID o k body based on the context it is used
-func (o *PutComponentsIDOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	// validation for a type composition with models.InternalAdapterHandlerHTTPSuccessResponse
-	if err := o.InternalAdapterHandlerHTTPSuccessResponse.ContextValidate(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.contextValidateData(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *PutComponentsIDOKBody) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
-
-	if o.Data != nil {
-
-		if swag.IsZero(o.Data) { // not required
-			return nil
-		}
-
-		if err := o.Data.ContextValidate(ctx, formats); err != nil {
-			ve := new(errors.Validation)
-			if stderrors.As(err, &ve) {
-				return ve.ValidateName("putComponentsIdOK" + "." + "data")
-			}
-			ce := new(errors.CompositeError)
-			if stderrors.As(err, &ce) {
-				return ce.ValidateName("putComponentsIdOK" + "." + "data")
-			}
-
-			return err
-		}
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *PutComponentsIDOKBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *PutComponentsIDOKBody) UnmarshalBinary(b []byte) error {
-	var res PutComponentsIDOKBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

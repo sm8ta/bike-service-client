@@ -73,7 +73,7 @@ type PutBikesIDParams struct {
 
 	   Данные для обновления
 	*/
-	Request *models.InternalAdapterHandlerHTTPUpdateBike
+	Request *models.HTTPUpdateBike
 
 	timeout    time.Duration
 	Context    context.Context
@@ -140,13 +140,13 @@ func (o *PutBikesIDParams) SetID(id string) {
 }
 
 // WithRequest adds the request to the put bikes ID params
-func (o *PutBikesIDParams) WithRequest(request *models.InternalAdapterHandlerHTTPUpdateBike) *PutBikesIDParams {
+func (o *PutBikesIDParams) WithRequest(request *models.HTTPUpdateBike) *PutBikesIDParams {
 	o.SetRequest(request)
 	return o
 }
 
 // SetRequest adds the request to the put bikes ID params
-func (o *PutBikesIDParams) SetRequest(request *models.InternalAdapterHandlerHTTPUpdateBike) {
+func (o *PutBikesIDParams) SetRequest(request *models.HTTPUpdateBike) {
 	o.Request = request
 }
 

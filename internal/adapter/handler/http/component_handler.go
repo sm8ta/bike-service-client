@@ -3,6 +3,7 @@ package http
 import (
 	"net/http"
 	"time"
+
 	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/domain"
 	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/ports"
 	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/services"
@@ -56,7 +57,7 @@ func NewComponentHandler(
 // @Accept json
 // @Produce json
 // @Param request body ComponentRequest true "Данные компонента"
-// @Success 201 {object} successResponse{data=domain.Component} "Компонент создан"
+// @Success 201 {object} successResponse "Компонент создан"
 // @Failure 400 {object} errorResponse "Неверный запрос"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Failure 403 {object} errorResponse "Доступ запрещен"
@@ -150,7 +151,7 @@ func (h *ComponentHandler) CreateComponent(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path string true "ID компонента" example:"jdk2-fsjmk-daslkdo2-321md-jsnlaljdn"
-// @Success 200 {object} successResponse{data=domain.Component} "Компонент найден"
+// @Success 200 {object} successResponse "Компонент найден"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Failure 403 {object} errorResponse "Доступ запрещен"
 // @Failure 404 {object} errorResponse "Компонент не найден"
@@ -215,7 +216,7 @@ func (h *ComponentHandler) GetComponent(c *gin.Context) {
 // @Produce json
 // @Param id path string true "ID компонента" example:"jdk2-fsjmk-daslkdo2-321md-jsnlaljdn"
 // @Param request body UpdateComponent true "Данные для обновления"
-// @Success 200 {object} successResponse{data=domain.Component} "Компонент обновлен"
+// @Success 200 {object} successResponse "Компонент обновлен"
 // @Failure 400 {object} errorResponse "Неверный запрос"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Failure 403 {object} errorResponse "Доступ запрещен"

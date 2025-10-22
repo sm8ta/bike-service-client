@@ -14,10 +14,10 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// InternalAdapterHandlerHTTPBikeRequest internal adapter handler http bike request
+// HTTPBikeRequest http bike request
 //
-// swagger:model internal_adapter_handler_http.BikeRequest
-type InternalAdapterHandlerHTTPBikeRequest struct {
+// swagger:model http.BikeRequest
+type HTTPBikeRequest struct {
 
 	// mileage
 	// Example: 1500
@@ -35,8 +35,8 @@ type InternalAdapterHandlerHTTPBikeRequest struct {
 	Type *string `json:"type"`
 }
 
-// Validate validates this internal adapter handler http bike request
-func (m *InternalAdapterHandlerHTTPBikeRequest) Validate(formats strfmt.Registry) error {
+// Validate validates this http bike request
+func (m *HTTPBikeRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateMileage(formats); err != nil {
@@ -57,7 +57,7 @@ func (m *InternalAdapterHandlerHTTPBikeRequest) Validate(formats strfmt.Registry
 	return nil
 }
 
-func (m *InternalAdapterHandlerHTTPBikeRequest) validateMileage(formats strfmt.Registry) error {
+func (m *HTTPBikeRequest) validateMileage(formats strfmt.Registry) error {
 
 	if err := validate.Required("mileage", "body", m.Mileage); err != nil {
 		return err
@@ -66,7 +66,7 @@ func (m *InternalAdapterHandlerHTTPBikeRequest) validateMileage(formats strfmt.R
 	return nil
 }
 
-func (m *InternalAdapterHandlerHTTPBikeRequest) validateModel(formats strfmt.Registry) error {
+func (m *HTTPBikeRequest) validateModel(formats strfmt.Registry) error {
 
 	if err := validate.Required("model", "body", m.Model); err != nil {
 		return err
@@ -75,7 +75,7 @@ func (m *InternalAdapterHandlerHTTPBikeRequest) validateModel(formats strfmt.Reg
 	return nil
 }
 
-func (m *InternalAdapterHandlerHTTPBikeRequest) validateType(formats strfmt.Registry) error {
+func (m *HTTPBikeRequest) validateType(formats strfmt.Registry) error {
 
 	if err := validate.Required("type", "body", m.Type); err != nil {
 		return err
@@ -84,13 +84,13 @@ func (m *InternalAdapterHandlerHTTPBikeRequest) validateType(formats strfmt.Regi
 	return nil
 }
 
-// ContextValidate validates this internal adapter handler http bike request based on context it is used
-func (m *InternalAdapterHandlerHTTPBikeRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validates this http bike request based on context it is used
+func (m *HTTPBikeRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *InternalAdapterHandlerHTTPBikeRequest) MarshalBinary() ([]byte, error) {
+func (m *HTTPBikeRequest) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -98,8 +98,8 @@ func (m *InternalAdapterHandlerHTTPBikeRequest) MarshalBinary() ([]byte, error) 
 }
 
 // UnmarshalBinary interface implementation
-func (m *InternalAdapterHandlerHTTPBikeRequest) UnmarshalBinary(b []byte) error {
-	var res InternalAdapterHandlerHTTPBikeRequest
+func (m *HTTPBikeRequest) UnmarshalBinary(b []byte) error {
+	var res HTTPBikeRequest
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

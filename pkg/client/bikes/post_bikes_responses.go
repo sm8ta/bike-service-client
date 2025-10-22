@@ -132,7 +132,7 @@ PostBikesBadRequest describes a response with status code 400, with default head
 Неверный запрос
 */
 type PostBikesBadRequest struct {
-	Payload *models.InternalAdapterHandlerHTTPErrorResponse
+	Payload *models.HTTPErrorResponse
 }
 
 // IsSuccess returns true when this post bikes bad request response has a 2xx status code
@@ -175,13 +175,13 @@ func (o *PostBikesBadRequest) String() string {
 	return fmt.Sprintf("[POST /bikes][%d] postBikesBadRequest %s", 400, payload)
 }
 
-func (o *PostBikesBadRequest) GetPayload() *models.InternalAdapterHandlerHTTPErrorResponse {
+func (o *PostBikesBadRequest) GetPayload() *models.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *PostBikesBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.InternalAdapterHandlerHTTPErrorResponse)
+	o.Payload = new(models.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
@@ -202,7 +202,7 @@ PostBikesUnauthorized describes a response with status code 401, with default he
 Не авторизован
 */
 type PostBikesUnauthorized struct {
-	Payload *models.InternalAdapterHandlerHTTPErrorResponse
+	Payload *models.HTTPErrorResponse
 }
 
 // IsSuccess returns true when this post bikes unauthorized response has a 2xx status code
@@ -245,13 +245,13 @@ func (o *PostBikesUnauthorized) String() string {
 	return fmt.Sprintf("[POST /bikes][%d] postBikesUnauthorized %s", 401, payload)
 }
 
-func (o *PostBikesUnauthorized) GetPayload() *models.InternalAdapterHandlerHTTPErrorResponse {
+func (o *PostBikesUnauthorized) GetPayload() *models.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *PostBikesUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.InternalAdapterHandlerHTTPErrorResponse)
+	o.Payload = new(models.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
@@ -266,24 +266,24 @@ PostBikesCreatedBody post bikes created body
 swagger:model PostBikesCreatedBody
 */
 type PostBikesCreatedBody struct {
-	models.InternalAdapterHandlerHTTPSuccessResponse
+	models.HTTPSuccessResponse
 
 	// data
-	Data *models.WebikeBikeMicroserviceNikitaInternalCoreDomainBike `json:"data,omitempty"`
+	Data *models.DomainBike `json:"data,omitempty"`
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
 func (o *PostBikesCreatedBody) UnmarshalJSON(raw []byte) error {
 	// PostBikesCreatedBodyAO0
-	var postBikesCreatedBodyAO0 models.InternalAdapterHandlerHTTPSuccessResponse
+	var postBikesCreatedBodyAO0 models.HTTPSuccessResponse
 	if err := swag.ReadJSON(raw, &postBikesCreatedBodyAO0); err != nil {
 		return err
 	}
-	o.InternalAdapterHandlerHTTPSuccessResponse = postBikesCreatedBodyAO0
+	o.HTTPSuccessResponse = postBikesCreatedBodyAO0
 
 	// PostBikesCreatedBodyAO1
 	var dataPostBikesCreatedBodyAO1 struct {
-		Data *models.WebikeBikeMicroserviceNikitaInternalCoreDomainBike `json:"data,omitempty"`
+		Data *models.DomainBike `json:"data,omitempty"`
 	}
 	if err := swag.ReadJSON(raw, &dataPostBikesCreatedBodyAO1); err != nil {
 		return err
@@ -298,13 +298,13 @@ func (o *PostBikesCreatedBody) UnmarshalJSON(raw []byte) error {
 func (o PostBikesCreatedBody) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 2)
 
-	postBikesCreatedBodyAO0, err := swag.WriteJSON(o.InternalAdapterHandlerHTTPSuccessResponse)
+	postBikesCreatedBodyAO0, err := swag.WriteJSON(o.HTTPSuccessResponse)
 	if err != nil {
 		return nil, err
 	}
 	_parts = append(_parts, postBikesCreatedBodyAO0)
 	var dataPostBikesCreatedBodyAO1 struct {
-		Data *models.WebikeBikeMicroserviceNikitaInternalCoreDomainBike `json:"data,omitempty"`
+		Data *models.DomainBike `json:"data,omitempty"`
 	}
 
 	dataPostBikesCreatedBodyAO1.Data = o.Data
@@ -321,8 +321,8 @@ func (o PostBikesCreatedBody) MarshalJSON() ([]byte, error) {
 func (o *PostBikesCreatedBody) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	// validation for a type composition with models.InternalAdapterHandlerHTTPSuccessResponse
-	if err := o.InternalAdapterHandlerHTTPSuccessResponse.Validate(formats); err != nil {
+	// validation for a type composition with models.HTTPSuccessResponse
+	if err := o.HTTPSuccessResponse.Validate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -364,8 +364,8 @@ func (o *PostBikesCreatedBody) validateData(formats strfmt.Registry) error {
 func (o *PostBikesCreatedBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
-	// validation for a type composition with models.InternalAdapterHandlerHTTPSuccessResponse
-	if err := o.InternalAdapterHandlerHTTPSuccessResponse.ContextValidate(ctx, formats); err != nil {
+	// validation for a type composition with models.HTTPSuccessResponse
+	if err := o.HTTPSuccessResponse.ContextValidate(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 

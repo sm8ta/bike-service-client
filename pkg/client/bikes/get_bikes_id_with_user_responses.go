@@ -132,7 +132,7 @@ GetBikesIDWithUserUnauthorized describes a response with status code 401, with d
 Не авторизован
 */
 type GetBikesIDWithUserUnauthorized struct {
-	Payload *models.InternalAdapterHandlerHTTPErrorResponse
+	Payload *models.HTTPErrorResponse
 }
 
 // IsSuccess returns true when this get bikes Id with user unauthorized response has a 2xx status code
@@ -175,13 +175,13 @@ func (o *GetBikesIDWithUserUnauthorized) String() string {
 	return fmt.Sprintf("[GET /bikes/{id}/with-user][%d] getBikesIdWithUserUnauthorized %s", 401, payload)
 }
 
-func (o *GetBikesIDWithUserUnauthorized) GetPayload() *models.InternalAdapterHandlerHTTPErrorResponse {
+func (o *GetBikesIDWithUserUnauthorized) GetPayload() *models.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *GetBikesIDWithUserUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.InternalAdapterHandlerHTTPErrorResponse)
+	o.Payload = new(models.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
@@ -202,7 +202,7 @@ GetBikesIDWithUserNotFound describes a response with status code 404, with defau
 Байк не найден
 */
 type GetBikesIDWithUserNotFound struct {
-	Payload *models.InternalAdapterHandlerHTTPErrorResponse
+	Payload *models.HTTPErrorResponse
 }
 
 // IsSuccess returns true when this get bikes Id with user not found response has a 2xx status code
@@ -245,13 +245,13 @@ func (o *GetBikesIDWithUserNotFound) String() string {
 	return fmt.Sprintf("[GET /bikes/{id}/with-user][%d] getBikesIdWithUserNotFound %s", 404, payload)
 }
 
-func (o *GetBikesIDWithUserNotFound) GetPayload() *models.InternalAdapterHandlerHTTPErrorResponse {
+func (o *GetBikesIDWithUserNotFound) GetPayload() *models.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *GetBikesIDWithUserNotFound) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.InternalAdapterHandlerHTTPErrorResponse)
+	o.Payload = new(models.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
@@ -266,24 +266,24 @@ GetBikesIDWithUserOKBody get bikes ID with user o k body
 swagger:model GetBikesIDWithUserOKBody
 */
 type GetBikesIDWithUserOKBody struct {
-	models.InternalAdapterHandlerHTTPSuccessResponse
+	models.HTTPSuccessResponse
 
 	// data
-	Data *models.InternalAdapterHandlerHTTPBikeWithUserResponse `json:"data,omitempty"`
+	Data *models.HTTPBikeWithUserResponse `json:"data,omitempty"`
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
 func (o *GetBikesIDWithUserOKBody) UnmarshalJSON(raw []byte) error {
 	// GetBikesIDWithUserOKBodyAO0
-	var getBikesIDWithUserOKBodyAO0 models.InternalAdapterHandlerHTTPSuccessResponse
+	var getBikesIDWithUserOKBodyAO0 models.HTTPSuccessResponse
 	if err := swag.ReadJSON(raw, &getBikesIDWithUserOKBodyAO0); err != nil {
 		return err
 	}
-	o.InternalAdapterHandlerHTTPSuccessResponse = getBikesIDWithUserOKBodyAO0
+	o.HTTPSuccessResponse = getBikesIDWithUserOKBodyAO0
 
 	// GetBikesIDWithUserOKBodyAO1
 	var dataGetBikesIDWithUserOKBodyAO1 struct {
-		Data *models.InternalAdapterHandlerHTTPBikeWithUserResponse `json:"data,omitempty"`
+		Data *models.HTTPBikeWithUserResponse `json:"data,omitempty"`
 	}
 	if err := swag.ReadJSON(raw, &dataGetBikesIDWithUserOKBodyAO1); err != nil {
 		return err
@@ -298,13 +298,13 @@ func (o *GetBikesIDWithUserOKBody) UnmarshalJSON(raw []byte) error {
 func (o GetBikesIDWithUserOKBody) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 2)
 
-	getBikesIDWithUserOKBodyAO0, err := swag.WriteJSON(o.InternalAdapterHandlerHTTPSuccessResponse)
+	getBikesIDWithUserOKBodyAO0, err := swag.WriteJSON(o.HTTPSuccessResponse)
 	if err != nil {
 		return nil, err
 	}
 	_parts = append(_parts, getBikesIDWithUserOKBodyAO0)
 	var dataGetBikesIDWithUserOKBodyAO1 struct {
-		Data *models.InternalAdapterHandlerHTTPBikeWithUserResponse `json:"data,omitempty"`
+		Data *models.HTTPBikeWithUserResponse `json:"data,omitempty"`
 	}
 
 	dataGetBikesIDWithUserOKBodyAO1.Data = o.Data
@@ -321,8 +321,8 @@ func (o GetBikesIDWithUserOKBody) MarshalJSON() ([]byte, error) {
 func (o *GetBikesIDWithUserOKBody) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	// validation for a type composition with models.InternalAdapterHandlerHTTPSuccessResponse
-	if err := o.InternalAdapterHandlerHTTPSuccessResponse.Validate(formats); err != nil {
+	// validation for a type composition with models.HTTPSuccessResponse
+	if err := o.HTTPSuccessResponse.Validate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -364,8 +364,8 @@ func (o *GetBikesIDWithUserOKBody) validateData(formats strfmt.Registry) error {
 func (o *GetBikesIDWithUserOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
-	// validation for a type composition with models.InternalAdapterHandlerHTTPSuccessResponse
-	if err := o.InternalAdapterHandlerHTTPSuccessResponse.ContextValidate(ctx, formats); err != nil {
+	// validation for a type composition with models.HTTPSuccessResponse
+	if err := o.HTTPSuccessResponse.ContextValidate(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 

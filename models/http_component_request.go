@@ -14,10 +14,10 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// InternalAdapterHandlerHTTPComponentRequest internal adapter handler http component request
+// HTTPComponentRequest http component request
 //
-// swagger:model internal_adapter_handler_http.ComponentRequest
-type InternalAdapterHandlerHTTPComponentRequest struct {
+// swagger:model http.ComponentRequest
+type HTTPComponentRequest struct {
 
 	// bike id
 	// Example: 123e4567-e89b-12d3-a456-426614174000
@@ -48,8 +48,8 @@ type InternalAdapterHandlerHTTPComponentRequest struct {
 	Name *string `json:"name"`
 }
 
-// Validate validates this internal adapter handler http component request
-func (m *InternalAdapterHandlerHTTPComponentRequest) Validate(formats strfmt.Registry) error {
+// Validate validates this http component request
+func (m *HTTPComponentRequest) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateBikeID(formats); err != nil {
@@ -74,7 +74,7 @@ func (m *InternalAdapterHandlerHTTPComponentRequest) Validate(formats strfmt.Reg
 	return nil
 }
 
-func (m *InternalAdapterHandlerHTTPComponentRequest) validateBikeID(formats strfmt.Registry) error {
+func (m *HTTPComponentRequest) validateBikeID(formats strfmt.Registry) error {
 
 	if err := validate.Required("bike_id", "body", m.BikeID); err != nil {
 		return err
@@ -83,7 +83,7 @@ func (m *InternalAdapterHandlerHTTPComponentRequest) validateBikeID(formats strf
 	return nil
 }
 
-func (m *InternalAdapterHandlerHTTPComponentRequest) validateInstalledMileage(formats strfmt.Registry) error {
+func (m *HTTPComponentRequest) validateInstalledMileage(formats strfmt.Registry) error {
 
 	if err := validate.Required("installed_mileage", "body", m.InstalledMileage); err != nil {
 		return err
@@ -92,7 +92,7 @@ func (m *InternalAdapterHandlerHTTPComponentRequest) validateInstalledMileage(fo
 	return nil
 }
 
-func (m *InternalAdapterHandlerHTTPComponentRequest) validateMaxMileage(formats strfmt.Registry) error {
+func (m *HTTPComponentRequest) validateMaxMileage(formats strfmt.Registry) error {
 
 	if err := validate.Required("max_mileage", "body", m.MaxMileage); err != nil {
 		return err
@@ -101,7 +101,7 @@ func (m *InternalAdapterHandlerHTTPComponentRequest) validateMaxMileage(formats 
 	return nil
 }
 
-func (m *InternalAdapterHandlerHTTPComponentRequest) validateName(formats strfmt.Registry) error {
+func (m *HTTPComponentRequest) validateName(formats strfmt.Registry) error {
 
 	if err := validate.Required("name", "body", m.Name); err != nil {
 		return err
@@ -110,13 +110,13 @@ func (m *InternalAdapterHandlerHTTPComponentRequest) validateName(formats strfmt
 	return nil
 }
 
-// ContextValidate validates this internal adapter handler http component request based on context it is used
-func (m *InternalAdapterHandlerHTTPComponentRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validates this http component request based on context it is used
+func (m *HTTPComponentRequest) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *InternalAdapterHandlerHTTPComponentRequest) MarshalBinary() ([]byte, error) {
+func (m *HTTPComponentRequest) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -124,8 +124,8 @@ func (m *InternalAdapterHandlerHTTPComponentRequest) MarshalBinary() ([]byte, er
 }
 
 // UnmarshalBinary interface implementation
-func (m *InternalAdapterHandlerHTTPComponentRequest) UnmarshalBinary(b []byte) error {
-	var res InternalAdapterHandlerHTTPComponentRequest
+func (m *HTTPComponentRequest) UnmarshalBinary(b []byte) error {
+	var res HTTPComponentRequest
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

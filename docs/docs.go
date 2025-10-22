@@ -40,7 +40,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.BikeRequest"
+                            "$ref": "#/definitions/http.BikeRequest"
                         }
                     }
                 ],
@@ -50,13 +50,13 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
+                                    "$ref": "#/definitions/http.successResponse"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.Bike"
+                                            "$ref": "#/definitions/domain.Bike"
                                         }
                                     }
                                 }
@@ -66,13 +66,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Неверный запрос",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     },
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     }
                 }
@@ -102,7 +102,7 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
+                                    "$ref": "#/definitions/http.successResponse"
                                 },
                                 {
                                     "type": "object",
@@ -110,7 +110,7 @@ const docTemplate = `{
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.Bike"
+                                                "$ref": "#/definitions/domain.Bike"
                                             }
                                         }
                                     }
@@ -121,13 +121,13 @@ const docTemplate = `{
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     },
                     "500": {
                         "description": "Внутренняя ошибка сервера",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     }
                 }
@@ -166,13 +166,13 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
+                                    "$ref": "#/definitions/http.successResponse"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.Bike"
+                                            "$ref": "#/definitions/domain.Bike"
                                         }
                                     }
                                 }
@@ -182,19 +182,19 @@ const docTemplate = `{
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     },
                     "403": {
                         "description": "Доступ запрещен",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     },
                     "404": {
                         "description": "Байк не найден",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     }
                 }
@@ -230,7 +230,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.UpdateBike"
+                            "$ref": "#/definitions/http.UpdateBike"
                         }
                     }
                 ],
@@ -240,13 +240,13 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
+                                    "$ref": "#/definitions/http.successResponse"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.Bike"
+                                            "$ref": "#/definitions/domain.Bike"
                                         }
                                     }
                                 }
@@ -256,19 +256,19 @@ const docTemplate = `{
                     "400": {
                         "description": "Неверный запрос",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     },
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     },
                     "403": {
                         "description": "Доступ запрещен",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     }
                 }
@@ -303,19 +303,19 @@ const docTemplate = `{
                     "200": {
                         "description": "Байк удален",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
+                            "$ref": "#/definitions/http.successResponse"
                         }
                     },
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     },
                     "403": {
                         "description": "Доступ запрещен",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     }
                 }
@@ -354,13 +354,13 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
+                                    "$ref": "#/definitions/http.successResponse"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.Bike"
+                                            "$ref": "#/definitions/domain.Bike"
                                         }
                                     }
                                 }
@@ -370,13 +370,13 @@ const docTemplate = `{
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     },
                     "404": {
                         "description": "Байк не найден",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     }
                 }
@@ -415,13 +415,13 @@ const docTemplate = `{
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
+                                    "$ref": "#/definitions/http.successResponse"
                                 },
                                 {
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/internal_adapter_handler_http.BikeWithUserResponse"
+                                            "$ref": "#/definitions/http.BikeWithUserResponse"
                                         }
                                     }
                                 }
@@ -431,13 +431,13 @@ const docTemplate = `{
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     },
                     "404": {
                         "description": "Байк не найден",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     }
                 }
@@ -468,7 +468,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.ComponentRequest"
+                            "$ref": "#/definitions/http.ComponentRequest"
                         }
                     }
                 ],
@@ -476,37 +476,25 @@ const docTemplate = `{
                     "201": {
                         "description": "Компонент создан",
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.Component"
-                                        }
-                                    }
-                                }
-                            ]
+                            "$ref": "#/definitions/http.successResponse"
                         }
                     },
                     "400": {
                         "description": "Неверный запрос",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     },
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     },
                     "403": {
                         "description": "Доступ запрещен",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     }
                 }
@@ -543,37 +531,25 @@ const docTemplate = `{
                     "200": {
                         "description": "Компонент найден",
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.Component"
-                                        }
-                                    }
-                                }
-                            ]
+                            "$ref": "#/definitions/http.successResponse"
                         }
                     },
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     },
                     "403": {
                         "description": "Доступ запрещен",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     },
                     "404": {
                         "description": "Компонент не найден",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     }
                 }
@@ -609,7 +585,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.UpdateComponent"
+                            "$ref": "#/definitions/http.UpdateComponent"
                         }
                     }
                 ],
@@ -617,37 +593,25 @@ const docTemplate = `{
                     "200": {
                         "description": "Компонент обновлен",
                         "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.Component"
-                                        }
-                                    }
-                                }
-                            ]
+                            "$ref": "#/definitions/http.successResponse"
                         }
                     },
                     "400": {
                         "description": "Неверный запрос",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     },
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     },
                     "403": {
                         "description": "Доступ запрещен",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     }
                 }
@@ -682,19 +646,19 @@ const docTemplate = `{
                     "200": {
                         "description": "Компонент удален",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
+                            "$ref": "#/definitions/http.successResponse"
                         }
                     },
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     },
                     "403": {
                         "description": "Доступ запрещен",
                         "schema": {
-                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                            "$ref": "#/definitions/http.errorResponse"
                         }
                     }
                 }
@@ -702,168 +666,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "internal_adapter_handler_http.BikeRequest": {
-            "type": "object",
-            "required": [
-                "mileage",
-                "model",
-                "type"
-            ],
-            "properties": {
-                "mileage": {
-                    "type": "integer",
-                    "example": 1500
-                },
-                "model": {
-                    "type": "string",
-                    "example": "Mountain Bike Pro"
-                },
-                "type": {
-                    "type": "string",
-                    "example": "mountain"
-                }
-            }
-        },
-        "internal_adapter_handler_http.BikeWithUserResponse": {
-            "type": "object",
-            "properties": {
-                "bike_id": {
-                    "type": "string",
-                    "example": "123e4567-e89b-12d3-a456-426614174000"
-                },
-                "mileage": {
-                    "type": "integer",
-                    "example": 1500
-                },
-                "model": {
-                    "type": "string",
-                    "example": "Mountain Bike Pro"
-                },
-                "user": {
-                    "$ref": "#/definitions/internal_adapter_handler_http.User"
-                }
-            }
-        },
-        "internal_adapter_handler_http.ComponentRequest": {
-            "type": "object",
-            "required": [
-                "bike_id",
-                "installed_mileage",
-                "max_mileage",
-                "name"
-            ],
-            "properties": {
-                "bike_id": {
-                    "type": "string",
-                    "example": "123e4567-e89b-12d3-a456-426614174000"
-                },
-                "brand": {
-                    "type": "string",
-                    "example": "Shimano"
-                },
-                "installed_mileage": {
-                    "type": "integer",
-                    "example": 1000
-                },
-                "max_mileage": {
-                    "type": "integer",
-                    "example": 5000
-                },
-                "model": {
-                    "type": "string",
-                    "example": "Deore XT"
-                },
-                "name": {
-                    "type": "string",
-                    "example": "handlebars"
-                }
-            }
-        },
-        "internal_adapter_handler_http.UpdateBike": {
-            "type": "object",
-            "properties": {
-                "mileage": {
-                    "type": "integer",
-                    "example": 2000
-                },
-                "model": {
-                    "type": "string",
-                    "example": "New Model"
-                },
-                "type": {
-                    "type": "string",
-                    "example": "mountain"
-                }
-            }
-        },
-        "internal_adapter_handler_http.UpdateComponent": {
-            "type": "object",
-            "properties": {
-                "brand": {
-                    "type": "string",
-                    "example": "Shimano"
-                },
-                "installed_mileage": {
-                    "type": "integer",
-                    "example": 1000
-                },
-                "max_mileage": {
-                    "type": "integer",
-                    "example": 5000
-                },
-                "model": {
-                    "type": "string",
-                    "example": "XT"
-                },
-                "name": {
-                    "type": "string",
-                    "example": "handlebars"
-                }
-            }
-        },
-        "internal_adapter_handler_http.User": {
-            "type": "object",
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "example": "Иван Иванов"
-                },
-                "user_id": {
-                    "type": "string",
-                    "example": "123e4567-e89b-12d3-a456-426614174000"
-                }
-            }
-        },
-        "internal_adapter_handler_http.errorResponse": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string",
-                    "example": "Error"
-                },
-                "success": {
-                    "type": "boolean",
-                    "example": false
-                }
-            }
-        },
-        "internal_adapter_handler_http.successResponse": {
-            "type": "object",
-            "properties": {
-                "data": {
-                    "type": "object"
-                },
-                "message": {
-                    "type": "string",
-                    "example": "Success message"
-                },
-                "success": {
-                    "type": "boolean",
-                    "example": true
-                }
-            }
-        },
-        "webike_bike_microservice_nikita_internal_core_domain.Bike": {
+        "domain.Bike": {
             "type": "object",
             "properties": {
                 "bike_id": {
@@ -875,7 +678,7 @@ const docTemplate = `{
                 "components": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.Component"
+                        "$ref": "#/definitions/domain.Component"
                     }
                 },
                 "created_at": {
@@ -889,7 +692,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "type": {
-                    "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.BikeType"
+                    "$ref": "#/definitions/domain.BikeType"
                 },
                 "updated_at": {
                     "type": "string"
@@ -902,7 +705,7 @@ const docTemplate = `{
                 }
             }
         },
-        "webike_bike_microservice_nikita_internal_core_domain.BikeType": {
+        "domain.BikeType": {
             "type": "string",
             "enum": [
                 "bmx",
@@ -915,7 +718,7 @@ const docTemplate = `{
                 "Road"
             ]
         },
-        "webike_bike_microservice_nikita_internal_core_domain.Component": {
+        "domain.Component": {
             "type": "object",
             "required": [
                 "bike_id",
@@ -961,7 +764,7 @@ const docTemplate = `{
                     ],
                     "allOf": [
                         {
-                            "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.ComponentName"
+                            "$ref": "#/definitions/domain.ComponentName"
                         }
                     ]
                 },
@@ -970,7 +773,7 @@ const docTemplate = `{
                 }
             }
         },
-        "webike_bike_microservice_nikita_internal_core_domain.ComponentName": {
+        "domain.ComponentName": {
             "type": "string",
             "enum": [
                 "handlebars",
@@ -982,6 +785,167 @@ const docTemplate = `{
                 "Frame",
                 "Wheels"
             ]
+        },
+        "http.BikeRequest": {
+            "type": "object",
+            "required": [
+                "mileage",
+                "model",
+                "type"
+            ],
+            "properties": {
+                "mileage": {
+                    "type": "integer",
+                    "example": 1500
+                },
+                "model": {
+                    "type": "string",
+                    "example": "Mountain Bike Pro"
+                },
+                "type": {
+                    "type": "string",
+                    "example": "mountain"
+                }
+            }
+        },
+        "http.BikeWithUserResponse": {
+            "type": "object",
+            "properties": {
+                "bike_id": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                },
+                "mileage": {
+                    "type": "integer",
+                    "example": 1500
+                },
+                "model": {
+                    "type": "string",
+                    "example": "Mountain Bike Pro"
+                },
+                "user": {
+                    "$ref": "#/definitions/http.User"
+                }
+            }
+        },
+        "http.ComponentRequest": {
+            "type": "object",
+            "required": [
+                "bike_id",
+                "installed_mileage",
+                "max_mileage",
+                "name"
+            ],
+            "properties": {
+                "bike_id": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                },
+                "brand": {
+                    "type": "string",
+                    "example": "Shimano"
+                },
+                "installed_mileage": {
+                    "type": "integer",
+                    "example": 1000
+                },
+                "max_mileage": {
+                    "type": "integer",
+                    "example": 5000
+                },
+                "model": {
+                    "type": "string",
+                    "example": "Deore XT"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "handlebars"
+                }
+            }
+        },
+        "http.UpdateBike": {
+            "type": "object",
+            "properties": {
+                "mileage": {
+                    "type": "integer",
+                    "example": 2000
+                },
+                "model": {
+                    "type": "string",
+                    "example": "New Model"
+                },
+                "type": {
+                    "type": "string",
+                    "example": "mountain"
+                }
+            }
+        },
+        "http.UpdateComponent": {
+            "type": "object",
+            "properties": {
+                "brand": {
+                    "type": "string",
+                    "example": "Shimano"
+                },
+                "installed_mileage": {
+                    "type": "integer",
+                    "example": 1000
+                },
+                "max_mileage": {
+                    "type": "integer",
+                    "example": 5000
+                },
+                "model": {
+                    "type": "string",
+                    "example": "XT"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "handlebars"
+                }
+            }
+        },
+        "http.User": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "Иван Иванов"
+                },
+                "user_id": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                }
+            }
+        },
+        "http.errorResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Error"
+                },
+                "success": {
+                    "type": "boolean",
+                    "example": false
+                }
+            }
+        },
+        "http.successResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "object"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Success message"
+                },
+                "success": {
+                    "type": "boolean",
+                    "example": true
+                }
+            }
         }
     },
     "securityDefinitions": {
@@ -995,7 +959,7 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "1.0",
+	Version:          "1.1",
 	Host:             "localhost:8081",
 	BasePath:         "/",
 	Schemes:          []string{},

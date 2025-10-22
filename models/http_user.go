@@ -12,10 +12,10 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// InternalAdapterHandlerHTTPUser internal adapter handler http user
+// HTTPUser http user
 //
-// swagger:model internal_adapter_handler_http.User
-type InternalAdapterHandlerHTTPUser struct {
+// swagger:model http.User
+type HTTPUser struct {
 
 	// name
 	// Example: Иван Иванов
@@ -26,18 +26,18 @@ type InternalAdapterHandlerHTTPUser struct {
 	UserID string `json:"user_id,omitempty"`
 }
 
-// Validate validates this internal adapter handler http user
-func (m *InternalAdapterHandlerHTTPUser) Validate(formats strfmt.Registry) error {
+// Validate validates this http user
+func (m *HTTPUser) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validates this internal adapter handler http user based on context it is used
-func (m *InternalAdapterHandlerHTTPUser) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validates this http user based on context it is used
+func (m *HTTPUser) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *InternalAdapterHandlerHTTPUser) MarshalBinary() ([]byte, error) {
+func (m *HTTPUser) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -45,8 +45,8 @@ func (m *InternalAdapterHandlerHTTPUser) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *InternalAdapterHandlerHTTPUser) UnmarshalBinary(b []byte) error {
-	var res InternalAdapterHandlerHTTPUser
+func (m *HTTPUser) UnmarshalBinary(b []byte) error {
+	var res HTTPUser
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

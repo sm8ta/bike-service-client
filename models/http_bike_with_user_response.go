@@ -14,10 +14,10 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// InternalAdapterHandlerHTTPBikeWithUserResponse internal adapter handler http bike with user response
+// HTTPBikeWithUserResponse http bike with user response
 //
-// swagger:model internal_adapter_handler_http.BikeWithUserResponse
-type InternalAdapterHandlerHTTPBikeWithUserResponse struct {
+// swagger:model http.BikeWithUserResponse
+type HTTPBikeWithUserResponse struct {
 
 	// bike id
 	// Example: 123e4567-e89b-12d3-a456-426614174000
@@ -32,11 +32,11 @@ type InternalAdapterHandlerHTTPBikeWithUserResponse struct {
 	Model string `json:"model,omitempty"`
 
 	// user
-	User *InternalAdapterHandlerHTTPUser `json:"user,omitempty"`
+	User *HTTPUser `json:"user,omitempty"`
 }
 
-// Validate validates this internal adapter handler http bike with user response
-func (m *InternalAdapterHandlerHTTPBikeWithUserResponse) Validate(formats strfmt.Registry) error {
+// Validate validates this http bike with user response
+func (m *HTTPBikeWithUserResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateUser(formats); err != nil {
@@ -49,7 +49,7 @@ func (m *InternalAdapterHandlerHTTPBikeWithUserResponse) Validate(formats strfmt
 	return nil
 }
 
-func (m *InternalAdapterHandlerHTTPBikeWithUserResponse) validateUser(formats strfmt.Registry) error {
+func (m *HTTPBikeWithUserResponse) validateUser(formats strfmt.Registry) error {
 	if swag.IsZero(m.User) { // not required
 		return nil
 	}
@@ -72,8 +72,8 @@ func (m *InternalAdapterHandlerHTTPBikeWithUserResponse) validateUser(formats st
 	return nil
 }
 
-// ContextValidate validate this internal adapter handler http bike with user response based on the context it is used
-func (m *InternalAdapterHandlerHTTPBikeWithUserResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validate this http bike with user response based on the context it is used
+func (m *HTTPBikeWithUserResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidateUser(ctx, formats); err != nil {
@@ -86,7 +86,7 @@ func (m *InternalAdapterHandlerHTTPBikeWithUserResponse) ContextValidate(ctx con
 	return nil
 }
 
-func (m *InternalAdapterHandlerHTTPBikeWithUserResponse) contextValidateUser(ctx context.Context, formats strfmt.Registry) error {
+func (m *HTTPBikeWithUserResponse) contextValidateUser(ctx context.Context, formats strfmt.Registry) error {
 
 	if m.User != nil {
 
@@ -112,7 +112,7 @@ func (m *InternalAdapterHandlerHTTPBikeWithUserResponse) contextValidateUser(ctx
 }
 
 // MarshalBinary interface implementation
-func (m *InternalAdapterHandlerHTTPBikeWithUserResponse) MarshalBinary() ([]byte, error) {
+func (m *HTTPBikeWithUserResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -120,8 +120,8 @@ func (m *InternalAdapterHandlerHTTPBikeWithUserResponse) MarshalBinary() ([]byte
 }
 
 // UnmarshalBinary interface implementation
-func (m *InternalAdapterHandlerHTTPBikeWithUserResponse) UnmarshalBinary(b []byte) error {
-	var res InternalAdapterHandlerHTTPBikeWithUserResponse
+func (m *HTTPBikeWithUserResponse) UnmarshalBinary(b []byte) error {
+	var res HTTPBikeWithUserResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

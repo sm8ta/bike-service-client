@@ -59,7 +59,7 @@ DeleteComponentsIDOK describes a response with status code 200, with default hea
 Компонент удален
 */
 type DeleteComponentsIDOK struct {
-	Payload *models.InternalAdapterHandlerHTTPSuccessResponse
+	Payload *models.HTTPSuccessResponse
 }
 
 // IsSuccess returns true when this delete components Id o k response has a 2xx status code
@@ -102,13 +102,13 @@ func (o *DeleteComponentsIDOK) String() string {
 	return fmt.Sprintf("[DELETE /components/{id}][%d] deleteComponentsIdOK %s", 200, payload)
 }
 
-func (o *DeleteComponentsIDOK) GetPayload() *models.InternalAdapterHandlerHTTPSuccessResponse {
+func (o *DeleteComponentsIDOK) GetPayload() *models.HTTPSuccessResponse {
 	return o.Payload
 }
 
 func (o *DeleteComponentsIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.InternalAdapterHandlerHTTPSuccessResponse)
+	o.Payload = new(models.HTTPSuccessResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
@@ -129,7 +129,7 @@ DeleteComponentsIDUnauthorized describes a response with status code 401, with d
 Не авторизован
 */
 type DeleteComponentsIDUnauthorized struct {
-	Payload *models.InternalAdapterHandlerHTTPErrorResponse
+	Payload *models.HTTPErrorResponse
 }
 
 // IsSuccess returns true when this delete components Id unauthorized response has a 2xx status code
@@ -172,13 +172,13 @@ func (o *DeleteComponentsIDUnauthorized) String() string {
 	return fmt.Sprintf("[DELETE /components/{id}][%d] deleteComponentsIdUnauthorized %s", 401, payload)
 }
 
-func (o *DeleteComponentsIDUnauthorized) GetPayload() *models.InternalAdapterHandlerHTTPErrorResponse {
+func (o *DeleteComponentsIDUnauthorized) GetPayload() *models.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *DeleteComponentsIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.InternalAdapterHandlerHTTPErrorResponse)
+	o.Payload = new(models.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
@@ -199,7 +199,7 @@ DeleteComponentsIDForbidden describes a response with status code 403, with defa
 Доступ запрещен
 */
 type DeleteComponentsIDForbidden struct {
-	Payload *models.InternalAdapterHandlerHTTPErrorResponse
+	Payload *models.HTTPErrorResponse
 }
 
 // IsSuccess returns true when this delete components Id forbidden response has a 2xx status code
@@ -242,13 +242,13 @@ func (o *DeleteComponentsIDForbidden) String() string {
 	return fmt.Sprintf("[DELETE /components/{id}][%d] deleteComponentsIdForbidden %s", 403, payload)
 }
 
-func (o *DeleteComponentsIDForbidden) GetPayload() *models.InternalAdapterHandlerHTTPErrorResponse {
+func (o *DeleteComponentsIDForbidden) GetPayload() *models.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *DeleteComponentsIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.InternalAdapterHandlerHTTPErrorResponse)
+	o.Payload = new(models.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {

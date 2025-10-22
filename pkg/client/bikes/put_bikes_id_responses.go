@@ -138,7 +138,7 @@ PutBikesIDBadRequest describes a response with status code 400, with default hea
 Неверный запрос
 */
 type PutBikesIDBadRequest struct {
-	Payload *models.InternalAdapterHandlerHTTPErrorResponse
+	Payload *models.HTTPErrorResponse
 }
 
 // IsSuccess returns true when this put bikes Id bad request response has a 2xx status code
@@ -181,13 +181,13 @@ func (o *PutBikesIDBadRequest) String() string {
 	return fmt.Sprintf("[PUT /bikes/{id}][%d] putBikesIdBadRequest %s", 400, payload)
 }
 
-func (o *PutBikesIDBadRequest) GetPayload() *models.InternalAdapterHandlerHTTPErrorResponse {
+func (o *PutBikesIDBadRequest) GetPayload() *models.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *PutBikesIDBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.InternalAdapterHandlerHTTPErrorResponse)
+	o.Payload = new(models.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
@@ -208,7 +208,7 @@ PutBikesIDUnauthorized describes a response with status code 401, with default h
 Не авторизован
 */
 type PutBikesIDUnauthorized struct {
-	Payload *models.InternalAdapterHandlerHTTPErrorResponse
+	Payload *models.HTTPErrorResponse
 }
 
 // IsSuccess returns true when this put bikes Id unauthorized response has a 2xx status code
@@ -251,13 +251,13 @@ func (o *PutBikesIDUnauthorized) String() string {
 	return fmt.Sprintf("[PUT /bikes/{id}][%d] putBikesIdUnauthorized %s", 401, payload)
 }
 
-func (o *PutBikesIDUnauthorized) GetPayload() *models.InternalAdapterHandlerHTTPErrorResponse {
+func (o *PutBikesIDUnauthorized) GetPayload() *models.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *PutBikesIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.InternalAdapterHandlerHTTPErrorResponse)
+	o.Payload = new(models.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
@@ -278,7 +278,7 @@ PutBikesIDForbidden describes a response with status code 403, with default head
 Доступ запрещен
 */
 type PutBikesIDForbidden struct {
-	Payload *models.InternalAdapterHandlerHTTPErrorResponse
+	Payload *models.HTTPErrorResponse
 }
 
 // IsSuccess returns true when this put bikes Id forbidden response has a 2xx status code
@@ -321,13 +321,13 @@ func (o *PutBikesIDForbidden) String() string {
 	return fmt.Sprintf("[PUT /bikes/{id}][%d] putBikesIdForbidden %s", 403, payload)
 }
 
-func (o *PutBikesIDForbidden) GetPayload() *models.InternalAdapterHandlerHTTPErrorResponse {
+func (o *PutBikesIDForbidden) GetPayload() *models.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *PutBikesIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.InternalAdapterHandlerHTTPErrorResponse)
+	o.Payload = new(models.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
@@ -342,24 +342,24 @@ PutBikesIDOKBody put bikes ID o k body
 swagger:model PutBikesIDOKBody
 */
 type PutBikesIDOKBody struct {
-	models.InternalAdapterHandlerHTTPSuccessResponse
+	models.HTTPSuccessResponse
 
 	// data
-	Data *models.WebikeBikeMicroserviceNikitaInternalCoreDomainBike `json:"data,omitempty"`
+	Data *models.DomainBike `json:"data,omitempty"`
 }
 
 // UnmarshalJSON unmarshals this object from a JSON structure
 func (o *PutBikesIDOKBody) UnmarshalJSON(raw []byte) error {
 	// PutBikesIDOKBodyAO0
-	var putBikesIDOKBodyAO0 models.InternalAdapterHandlerHTTPSuccessResponse
+	var putBikesIDOKBodyAO0 models.HTTPSuccessResponse
 	if err := swag.ReadJSON(raw, &putBikesIDOKBodyAO0); err != nil {
 		return err
 	}
-	o.InternalAdapterHandlerHTTPSuccessResponse = putBikesIDOKBodyAO0
+	o.HTTPSuccessResponse = putBikesIDOKBodyAO0
 
 	// PutBikesIDOKBodyAO1
 	var dataPutBikesIDOKBodyAO1 struct {
-		Data *models.WebikeBikeMicroserviceNikitaInternalCoreDomainBike `json:"data,omitempty"`
+		Data *models.DomainBike `json:"data,omitempty"`
 	}
 	if err := swag.ReadJSON(raw, &dataPutBikesIDOKBodyAO1); err != nil {
 		return err
@@ -374,13 +374,13 @@ func (o *PutBikesIDOKBody) UnmarshalJSON(raw []byte) error {
 func (o PutBikesIDOKBody) MarshalJSON() ([]byte, error) {
 	_parts := make([][]byte, 0, 2)
 
-	putBikesIDOKBodyAO0, err := swag.WriteJSON(o.InternalAdapterHandlerHTTPSuccessResponse)
+	putBikesIDOKBodyAO0, err := swag.WriteJSON(o.HTTPSuccessResponse)
 	if err != nil {
 		return nil, err
 	}
 	_parts = append(_parts, putBikesIDOKBodyAO0)
 	var dataPutBikesIDOKBodyAO1 struct {
-		Data *models.WebikeBikeMicroserviceNikitaInternalCoreDomainBike `json:"data,omitempty"`
+		Data *models.DomainBike `json:"data,omitempty"`
 	}
 
 	dataPutBikesIDOKBodyAO1.Data = o.Data
@@ -397,8 +397,8 @@ func (o PutBikesIDOKBody) MarshalJSON() ([]byte, error) {
 func (o *PutBikesIDOKBody) Validate(formats strfmt.Registry) error {
 	var res []error
 
-	// validation for a type composition with models.InternalAdapterHandlerHTTPSuccessResponse
-	if err := o.InternalAdapterHandlerHTTPSuccessResponse.Validate(formats); err != nil {
+	// validation for a type composition with models.HTTPSuccessResponse
+	if err := o.HTTPSuccessResponse.Validate(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -440,8 +440,8 @@ func (o *PutBikesIDOKBody) validateData(formats strfmt.Registry) error {
 func (o *PutBikesIDOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
-	// validation for a type composition with models.InternalAdapterHandlerHTTPSuccessResponse
-	if err := o.InternalAdapterHandlerHTTPSuccessResponse.ContextValidate(ctx, formats); err != nil {
+	// validation for a type composition with models.HTTPSuccessResponse
+	if err := o.HTTPSuccessResponse.ContextValidate(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 

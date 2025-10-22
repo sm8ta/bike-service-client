@@ -15,10 +15,10 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// WebikeBikeMicroserviceNikitaInternalCoreDomainBike webike bike microservice nikita internal core domain bike
+// DomainBike domain bike
 //
-// swagger:model webike_bike_microservice_nikita_internal_core_domain.Bike
-type WebikeBikeMicroserviceNikitaInternalCoreDomainBike struct {
+// swagger:model domain.Bike
+type DomainBike struct {
 
 	// bike id
 	BikeID string `json:"bike_id,omitempty"`
@@ -27,7 +27,7 @@ type WebikeBikeMicroserviceNikitaInternalCoreDomainBike struct {
 	BikeName string `json:"bike_name,omitempty"`
 
 	// components
-	Components []*WebikeBikeMicroserviceNikitaInternalCoreDomainComponent `json:"components"`
+	Components []*DomainComponent `json:"components"`
 
 	// created at
 	CreatedAt string `json:"created_at,omitempty"`
@@ -39,7 +39,7 @@ type WebikeBikeMicroserviceNikitaInternalCoreDomainBike struct {
 	Model string `json:"model,omitempty"`
 
 	// type
-	Type WebikeBikeMicroserviceNikitaInternalCoreDomainBikeType `json:"type,omitempty"`
+	Type DomainBikeType `json:"type,omitempty"`
 
 	// updated at
 	UpdatedAt string `json:"updated_at,omitempty"`
@@ -51,8 +51,8 @@ type WebikeBikeMicroserviceNikitaInternalCoreDomainBike struct {
 	Year int64 `json:"year,omitempty"`
 }
 
-// Validate validates this webike bike microservice nikita internal core domain bike
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainBike) Validate(formats strfmt.Registry) error {
+// Validate validates this domain bike
+func (m *DomainBike) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateComponents(formats); err != nil {
@@ -69,7 +69,7 @@ func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainBike) Validate(formats st
 	return nil
 }
 
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainBike) validateComponents(formats strfmt.Registry) error {
+func (m *DomainBike) validateComponents(formats strfmt.Registry) error {
 	if swag.IsZero(m.Components) { // not required
 		return nil
 	}
@@ -99,7 +99,7 @@ func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainBike) validateComponents(
 	return nil
 }
 
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainBike) validateType(formats strfmt.Registry) error {
+func (m *DomainBike) validateType(formats strfmt.Registry) error {
 	if swag.IsZero(m.Type) { // not required
 		return nil
 	}
@@ -120,8 +120,8 @@ func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainBike) validateType(format
 	return nil
 }
 
-// ContextValidate validate this webike bike microservice nikita internal core domain bike based on the context it is used
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainBike) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validate this domain bike based on the context it is used
+func (m *DomainBike) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidateComponents(ctx, formats); err != nil {
@@ -138,7 +138,7 @@ func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainBike) ContextValidate(ctx
 	return nil
 }
 
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainBike) contextValidateComponents(ctx context.Context, formats strfmt.Registry) error {
+func (m *DomainBike) contextValidateComponents(ctx context.Context, formats strfmt.Registry) error {
 
 	for i := 0; i < len(m.Components); i++ {
 
@@ -167,7 +167,7 @@ func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainBike) contextValidateComp
 	return nil
 }
 
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainBike) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
+func (m *DomainBike) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Type) { // not required
 		return nil
@@ -190,7 +190,7 @@ func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainBike) contextValidateType
 }
 
 // MarshalBinary interface implementation
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainBike) MarshalBinary() ([]byte, error) {
+func (m *DomainBike) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -198,8 +198,8 @@ func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainBike) MarshalBinary() ([]
 }
 
 // UnmarshalBinary interface implementation
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainBike) UnmarshalBinary(b []byte) error {
-	var res WebikeBikeMicroserviceNikitaInternalCoreDomainBike
+func (m *DomainBike) UnmarshalBinary(b []byte) error {
+	var res DomainBike
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
