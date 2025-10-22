@@ -40,7 +40,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/http.BikeRequest"
+                            "$ref": "#/definitions/internal_adapter_handler_http.BikeRequest"
                         }
                     }
                 ],
@@ -48,19 +48,31 @@ const docTemplate = `{
                     "201": {
                         "description": "Байк создан",
                         "schema": {
-                            "$ref": "#/definitions/http.successResponse"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.Bike"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
                     "400": {
                         "description": "Неверный запрос",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     },
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     }
                 }
@@ -73,22 +85,49 @@ const docTemplate = `{
                         "BearerAuth": []
                     }
                 ],
-                "description": "Получение всех байков пользователя",
+                "description": "Получение всех байков авторизованного пользователя",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
                 "tags": [
                     "bikes"
                 ],
-                "summary": "Получить байки пользователя",
+                "summary": "Получить байки пользователя по айди пользователя",
                 "responses": {
                     "200": {
-                        "description": "Байки найдены",
+                        "description": "Список байков пользователя",
                         "schema": {
-                            "$ref": "#/definitions/http.successResponse"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.Bike"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Внутренняя ошибка сервера",
+                        "schema": {
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     }
                 }
@@ -102,6 +141,12 @@ const docTemplate = `{
                     }
                 ],
                 "description": "Получение информации о байке по ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
                 "tags": [
                     "bikes"
                 ],
@@ -119,25 +164,37 @@ const docTemplate = `{
                     "200": {
                         "description": "Байк найден",
                         "schema": {
-                            "$ref": "#/definitions/http.successResponse"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.Bike"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     },
                     "403": {
                         "description": "Доступ запрещен",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     },
                     "404": {
                         "description": "Байк не найден",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     }
                 }
@@ -149,6 +206,12 @@ const docTemplate = `{
                     }
                 ],
                 "description": "Обновление данных байка",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
                 "tags": [
                     "bikes"
                 ],
@@ -167,7 +230,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/http.UpdateBike"
+                            "$ref": "#/definitions/internal_adapter_handler_http.UpdateBike"
                         }
                     }
                 ],
@@ -175,25 +238,37 @@ const docTemplate = `{
                     "200": {
                         "description": "Байк обновлен",
                         "schema": {
-                            "$ref": "#/definitions/http.successResponse"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.Bike"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
                     "400": {
                         "description": "Неверный запрос",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     },
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     },
                     "403": {
                         "description": "Доступ запрещен",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     }
                 }
@@ -205,6 +280,12 @@ const docTemplate = `{
                     }
                 ],
                 "description": "Удаление байка",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
                 "tags": [
                     "bikes"
                 ],
@@ -222,19 +303,19 @@ const docTemplate = `{
                     "200": {
                         "description": "Байк удален",
                         "schema": {
-                            "$ref": "#/definitions/http.successResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
                         }
                     },
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     },
                     "403": {
                         "description": "Доступ запрещен",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     }
                 }
@@ -248,6 +329,12 @@ const docTemplate = `{
                     }
                 ],
                 "description": "Получение байка со всеми компонентами",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
                 "tags": [
                     "bikes"
                 ],
@@ -265,19 +352,31 @@ const docTemplate = `{
                     "200": {
                         "description": "Байк с компонентами",
                         "schema": {
-                            "$ref": "#/definitions/http.successResponse"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.Bike"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     },
                     "404": {
                         "description": "Байк не найден",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     }
                 }
@@ -291,6 +390,12 @@ const docTemplate = `{
                     }
                 ],
                 "description": "Получение информации о байке и его владельце",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
                 "tags": [
                     "bikes"
                 ],
@@ -308,19 +413,31 @@ const docTemplate = `{
                     "200": {
                         "description": "Байк с пользователем",
                         "schema": {
-                            "$ref": "#/definitions/http.successResponse"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/internal_adapter_handler_http.BikeWithUserResponse"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     },
                     "404": {
                         "description": "Байк не найден",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     }
                 }
@@ -351,7 +468,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/http.ComponentRequest"
+                            "$ref": "#/definitions/internal_adapter_handler_http.ComponentRequest"
                         }
                     }
                 ],
@@ -359,25 +476,37 @@ const docTemplate = `{
                     "201": {
                         "description": "Компонент создан",
                         "schema": {
-                            "$ref": "#/definitions/http.successResponse"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.Component"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
                     "400": {
                         "description": "Неверный запрос",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     },
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     },
                     "403": {
                         "description": "Доступ запрещен",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     }
                 }
@@ -391,6 +520,12 @@ const docTemplate = `{
                     }
                 ],
                 "description": "Получение информации о компоненте по ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
                 "tags": [
                     "components"
                 ],
@@ -408,25 +543,37 @@ const docTemplate = `{
                     "200": {
                         "description": "Компонент найден",
                         "schema": {
-                            "$ref": "#/definitions/http.successResponse"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.Component"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     },
                     "403": {
                         "description": "Доступ запрещен",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     },
                     "404": {
                         "description": "Компонент не найден",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     }
                 }
@@ -438,6 +585,12 @@ const docTemplate = `{
                     }
                 ],
                 "description": "Обновление данных компонента",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
                 "tags": [
                     "components"
                 ],
@@ -456,7 +609,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/http.UpdateComponent"
+                            "$ref": "#/definitions/internal_adapter_handler_http.UpdateComponent"
                         }
                     }
                 ],
@@ -464,25 +617,37 @@ const docTemplate = `{
                     "200": {
                         "description": "Компонент обновлен",
                         "schema": {
-                            "$ref": "#/definitions/http.successResponse"
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.Component"
+                                        }
+                                    }
+                                }
+                            ]
                         }
                     },
                     "400": {
                         "description": "Неверный запрос",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     },
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     },
                     "403": {
                         "description": "Доступ запрещен",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     }
                 }
@@ -494,6 +659,12 @@ const docTemplate = `{
                     }
                 ],
                 "description": "Удаление компонента",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
                 "tags": [
                     "components"
                 ],
@@ -511,19 +682,19 @@ const docTemplate = `{
                     "200": {
                         "description": "Компонент удален",
                         "schema": {
-                            "$ref": "#/definitions/http.successResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.successResponse"
                         }
                     },
                     "401": {
                         "description": "Не авторизован",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     },
                     "403": {
                         "description": "Доступ запрещен",
                         "schema": {
-                            "$ref": "#/definitions/http.errorResponse"
+                            "$ref": "#/definitions/internal_adapter_handler_http.errorResponse"
                         }
                     }
                 }
@@ -531,7 +702,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "http.BikeRequest": {
+        "internal_adapter_handler_http.BikeRequest": {
             "type": "object",
             "required": [
                 "mileage",
@@ -553,7 +724,27 @@ const docTemplate = `{
                 }
             }
         },
-        "http.ComponentRequest": {
+        "internal_adapter_handler_http.BikeWithUserResponse": {
+            "type": "object",
+            "properties": {
+                "bike_id": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                },
+                "mileage": {
+                    "type": "integer",
+                    "example": 1500
+                },
+                "model": {
+                    "type": "string",
+                    "example": "Mountain Bike Pro"
+                },
+                "user": {
+                    "$ref": "#/definitions/internal_adapter_handler_http.User"
+                }
+            }
+        },
+        "internal_adapter_handler_http.ComponentRequest": {
             "type": "object",
             "required": [
                 "bike_id",
@@ -588,7 +779,7 @@ const docTemplate = `{
                 }
             }
         },
-        "http.UpdateBike": {
+        "internal_adapter_handler_http.UpdateBike": {
             "type": "object",
             "properties": {
                 "mileage": {
@@ -605,7 +796,7 @@ const docTemplate = `{
                 }
             }
         },
-        "http.UpdateComponent": {
+        "internal_adapter_handler_http.UpdateComponent": {
             "type": "object",
             "properties": {
                 "brand": {
@@ -630,7 +821,20 @@ const docTemplate = `{
                 }
             }
         },
-        "http.errorResponse": {
+        "internal_adapter_handler_http.User": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "Иван Иванов"
+                },
+                "user_id": {
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                }
+            }
+        },
+        "internal_adapter_handler_http.errorResponse": {
             "type": "object",
             "properties": {
                 "message": {
@@ -643,7 +847,7 @@ const docTemplate = `{
                 }
             }
         },
-        "http.successResponse": {
+        "internal_adapter_handler_http.successResponse": {
             "type": "object",
             "properties": {
                 "data": {
@@ -658,6 +862,126 @@ const docTemplate = `{
                     "example": true
                 }
             }
+        },
+        "webike_bike_microservice_nikita_internal_core_domain.Bike": {
+            "type": "object",
+            "properties": {
+                "bike_id": {
+                    "type": "string"
+                },
+                "bike_name": {
+                    "type": "string"
+                },
+                "components": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.Component"
+                    }
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "mileage": {
+                    "type": "integer"
+                },
+                "model": {
+                    "description": "stels",
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.BikeType"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                },
+                "year": {
+                    "type": "integer"
+                }
+            }
+        },
+        "webike_bike_microservice_nikita_internal_core_domain.BikeType": {
+            "type": "string",
+            "enum": [
+                "bmx",
+                "mtb",
+                "road"
+            ],
+            "x-enum-varnames": [
+                "BMX",
+                "MTB",
+                "Road"
+            ]
+        },
+        "webike_bike_microservice_nikita_internal_core_domain.Component": {
+            "type": "object",
+            "required": [
+                "bike_id",
+                "installed_at",
+                "max_mileage",
+                "name"
+            ],
+            "properties": {
+                "bike_id": {
+                    "type": "string"
+                },
+                "brand": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "installed_at": {
+                    "type": "string"
+                },
+                "installed_mileage": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "max_mileage": {
+                    "type": "integer",
+                    "maximum": 1000000,
+                    "minimum": 1
+                },
+                "model": {
+                    "type": "string",
+                    "maxLength": 100
+                },
+                "name": {
+                    "enum": [
+                        "handlebars",
+                        "frame",
+                        "wheels"
+                    ],
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/webike_bike_microservice_nikita_internal_core_domain.ComponentName"
+                        }
+                    ]
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "webike_bike_microservice_nikita_internal_core_domain.ComponentName": {
+            "type": "string",
+            "enum": [
+                "handlebars",
+                "frame",
+                "wheels"
+            ],
+            "x-enum-varnames": [
+                "Handlebars",
+                "Frame",
+                "Wheels"
+            ]
         }
     },
     "securityDefinitions": {
