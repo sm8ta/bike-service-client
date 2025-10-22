@@ -6,16 +6,13 @@ package components
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"context"
 	"encoding/json"
 	stderrors "errors"
 	"fmt"
 	"io"
 
-	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
-	"github.com/go-openapi/swag"
 
 	"github.com/sm8ta/webike_bike_microservice_nikita/models"
 )
@@ -68,7 +65,7 @@ PostComponentsCreated describes a response with status code 201, with default he
 Компонент создан
 */
 type PostComponentsCreated struct {
-	Payload *PostComponentsCreatedBody
+	Payload *models.HTTPSuccessResponse
 }
 
 // IsSuccess returns true when this post components created response has a 2xx status code
@@ -111,13 +108,13 @@ func (o *PostComponentsCreated) String() string {
 	return fmt.Sprintf("[POST /components][%d] postComponentsCreated %s", 201, payload)
 }
 
-func (o *PostComponentsCreated) GetPayload() *PostComponentsCreatedBody {
+func (o *PostComponentsCreated) GetPayload() *models.HTTPSuccessResponse {
 	return o.Payload
 }
 
 func (o *PostComponentsCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(PostComponentsCreatedBody)
+	o.Payload = new(models.HTTPSuccessResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
@@ -138,7 +135,7 @@ PostComponentsBadRequest describes a response with status code 400, with default
 Неверный запрос
 */
 type PostComponentsBadRequest struct {
-	Payload *models.InternalAdapterHandlerHTTPErrorResponse
+	Payload *models.HTTPErrorResponse
 }
 
 // IsSuccess returns true when this post components bad request response has a 2xx status code
@@ -181,13 +178,13 @@ func (o *PostComponentsBadRequest) String() string {
 	return fmt.Sprintf("[POST /components][%d] postComponentsBadRequest %s", 400, payload)
 }
 
-func (o *PostComponentsBadRequest) GetPayload() *models.InternalAdapterHandlerHTTPErrorResponse {
+func (o *PostComponentsBadRequest) GetPayload() *models.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *PostComponentsBadRequest) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.InternalAdapterHandlerHTTPErrorResponse)
+	o.Payload = new(models.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
@@ -208,7 +205,7 @@ PostComponentsUnauthorized describes a response with status code 401, with defau
 Не авторизован
 */
 type PostComponentsUnauthorized struct {
-	Payload *models.InternalAdapterHandlerHTTPErrorResponse
+	Payload *models.HTTPErrorResponse
 }
 
 // IsSuccess returns true when this post components unauthorized response has a 2xx status code
@@ -251,13 +248,13 @@ func (o *PostComponentsUnauthorized) String() string {
 	return fmt.Sprintf("[POST /components][%d] postComponentsUnauthorized %s", 401, payload)
 }
 
-func (o *PostComponentsUnauthorized) GetPayload() *models.InternalAdapterHandlerHTTPErrorResponse {
+func (o *PostComponentsUnauthorized) GetPayload() *models.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *PostComponentsUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.InternalAdapterHandlerHTTPErrorResponse)
+	o.Payload = new(models.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
@@ -278,7 +275,7 @@ PostComponentsForbidden describes a response with status code 403, with default 
 Доступ запрещен
 */
 type PostComponentsForbidden struct {
-	Payload *models.InternalAdapterHandlerHTTPErrorResponse
+	Payload *models.HTTPErrorResponse
 }
 
 // IsSuccess returns true when this post components forbidden response has a 2xx status code
@@ -321,179 +318,18 @@ func (o *PostComponentsForbidden) String() string {
 	return fmt.Sprintf("[POST /components][%d] postComponentsForbidden %s", 403, payload)
 }
 
-func (o *PostComponentsForbidden) GetPayload() *models.InternalAdapterHandlerHTTPErrorResponse {
+func (o *PostComponentsForbidden) GetPayload() *models.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *PostComponentsForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.InternalAdapterHandlerHTTPErrorResponse)
+	o.Payload = new(models.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
 		return err
 	}
 
-	return nil
-}
-
-/*
-PostComponentsCreatedBody post components created body
-swagger:model PostComponentsCreatedBody
-*/
-type PostComponentsCreatedBody struct {
-	models.InternalAdapterHandlerHTTPSuccessResponse
-
-	// data
-	Data *models.WebikeBikeMicroserviceNikitaInternalCoreDomainComponent `json:"data,omitempty"`
-}
-
-// UnmarshalJSON unmarshals this object from a JSON structure
-func (o *PostComponentsCreatedBody) UnmarshalJSON(raw []byte) error {
-	// PostComponentsCreatedBodyAO0
-	var postComponentsCreatedBodyAO0 models.InternalAdapterHandlerHTTPSuccessResponse
-	if err := swag.ReadJSON(raw, &postComponentsCreatedBodyAO0); err != nil {
-		return err
-	}
-	o.InternalAdapterHandlerHTTPSuccessResponse = postComponentsCreatedBodyAO0
-
-	// PostComponentsCreatedBodyAO1
-	var dataPostComponentsCreatedBodyAO1 struct {
-		Data *models.WebikeBikeMicroserviceNikitaInternalCoreDomainComponent `json:"data,omitempty"`
-	}
-	if err := swag.ReadJSON(raw, &dataPostComponentsCreatedBodyAO1); err != nil {
-		return err
-	}
-
-	o.Data = dataPostComponentsCreatedBodyAO1.Data
-
-	return nil
-}
-
-// MarshalJSON marshals this object to a JSON structure
-func (o PostComponentsCreatedBody) MarshalJSON() ([]byte, error) {
-	_parts := make([][]byte, 0, 2)
-
-	postComponentsCreatedBodyAO0, err := swag.WriteJSON(o.InternalAdapterHandlerHTTPSuccessResponse)
-	if err != nil {
-		return nil, err
-	}
-	_parts = append(_parts, postComponentsCreatedBodyAO0)
-	var dataPostComponentsCreatedBodyAO1 struct {
-		Data *models.WebikeBikeMicroserviceNikitaInternalCoreDomainComponent `json:"data,omitempty"`
-	}
-
-	dataPostComponentsCreatedBodyAO1.Data = o.Data
-
-	jsonDataPostComponentsCreatedBodyAO1, errPostComponentsCreatedBodyAO1 := swag.WriteJSON(dataPostComponentsCreatedBodyAO1)
-	if errPostComponentsCreatedBodyAO1 != nil {
-		return nil, errPostComponentsCreatedBodyAO1
-	}
-	_parts = append(_parts, jsonDataPostComponentsCreatedBodyAO1)
-	return swag.ConcatJSON(_parts...), nil
-}
-
-// Validate validates this post components created body
-func (o *PostComponentsCreatedBody) Validate(formats strfmt.Registry) error {
-	var res []error
-
-	// validation for a type composition with models.InternalAdapterHandlerHTTPSuccessResponse
-	if err := o.InternalAdapterHandlerHTTPSuccessResponse.Validate(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.validateData(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *PostComponentsCreatedBody) validateData(formats strfmt.Registry) error {
-
-	if swag.IsZero(o.Data) { // not required
-		return nil
-	}
-
-	if o.Data != nil {
-		if err := o.Data.Validate(formats); err != nil {
-			ve := new(errors.Validation)
-			if stderrors.As(err, &ve) {
-				return ve.ValidateName("postComponentsCreated" + "." + "data")
-			}
-			ce := new(errors.CompositeError)
-			if stderrors.As(err, &ce) {
-				return ce.ValidateName("postComponentsCreated" + "." + "data")
-			}
-
-			return err
-		}
-	}
-
-	return nil
-}
-
-// ContextValidate validate this post components created body based on the context it is used
-func (o *PostComponentsCreatedBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
-	var res []error
-
-	// validation for a type composition with models.InternalAdapterHandlerHTTPSuccessResponse
-	if err := o.InternalAdapterHandlerHTTPSuccessResponse.ContextValidate(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := o.contextValidateData(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if len(res) > 0 {
-		return errors.CompositeValidationError(res...)
-	}
-	return nil
-}
-
-func (o *PostComponentsCreatedBody) contextValidateData(ctx context.Context, formats strfmt.Registry) error {
-
-	if o.Data != nil {
-
-		if swag.IsZero(o.Data) { // not required
-			return nil
-		}
-
-		if err := o.Data.ContextValidate(ctx, formats); err != nil {
-			ve := new(errors.Validation)
-			if stderrors.As(err, &ve) {
-				return ve.ValidateName("postComponentsCreated" + "." + "data")
-			}
-			ce := new(errors.CompositeError)
-			if stderrors.As(err, &ce) {
-				return ce.ValidateName("postComponentsCreated" + "." + "data")
-			}
-
-			return err
-		}
-	}
-
-	return nil
-}
-
-// MarshalBinary interface implementation
-func (o *PostComponentsCreatedBody) MarshalBinary() ([]byte, error) {
-	if o == nil {
-		return nil, nil
-	}
-	return swag.WriteJSON(o)
-}
-
-// UnmarshalBinary interface implementation
-func (o *PostComponentsCreatedBody) UnmarshalBinary(b []byte) error {
-	var res PostComponentsCreatedBody
-	if err := swag.ReadJSON(b, &res); err != nil {
-		return err
-	}
-	*o = res
 	return nil
 }

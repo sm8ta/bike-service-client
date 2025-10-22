@@ -12,10 +12,10 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// InternalAdapterHandlerHTTPUpdateComponent internal adapter handler http update component
+// HTTPUpdateComponent http update component
 //
-// swagger:model internal_adapter_handler_http.UpdateComponent
-type InternalAdapterHandlerHTTPUpdateComponent struct {
+// swagger:model http.UpdateComponent
+type HTTPUpdateComponent struct {
 
 	// brand
 	// Example: Shimano
@@ -38,18 +38,18 @@ type InternalAdapterHandlerHTTPUpdateComponent struct {
 	Name string `json:"name,omitempty"`
 }
 
-// Validate validates this internal adapter handler http update component
-func (m *InternalAdapterHandlerHTTPUpdateComponent) Validate(formats strfmt.Registry) error {
+// Validate validates this http update component
+func (m *HTTPUpdateComponent) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-// ContextValidate validates this internal adapter handler http update component based on context it is used
-func (m *InternalAdapterHandlerHTTPUpdateComponent) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validates this http update component based on context it is used
+func (m *HTTPUpdateComponent) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *InternalAdapterHandlerHTTPUpdateComponent) MarshalBinary() ([]byte, error) {
+func (m *HTTPUpdateComponent) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -57,8 +57,8 @@ func (m *InternalAdapterHandlerHTTPUpdateComponent) MarshalBinary() ([]byte, err
 }
 
 // UnmarshalBinary interface implementation
-func (m *InternalAdapterHandlerHTTPUpdateComponent) UnmarshalBinary(b []byte) error {
-	var res InternalAdapterHandlerHTTPUpdateComponent
+func (m *HTTPUpdateComponent) UnmarshalBinary(b []byte) error {
+	var res HTTPUpdateComponent
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

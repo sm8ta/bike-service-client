@@ -67,7 +67,7 @@ type PostBikesParams struct {
 
 	   Данные байка
 	*/
-	Request *models.InternalAdapterHandlerHTTPBikeRequest
+	Request *models.HTTPBikeRequest
 
 	timeout    time.Duration
 	Context    context.Context
@@ -123,13 +123,13 @@ func (o *PostBikesParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithRequest adds the request to the post bikes params
-func (o *PostBikesParams) WithRequest(request *models.InternalAdapterHandlerHTTPBikeRequest) *PostBikesParams {
+func (o *PostBikesParams) WithRequest(request *models.HTTPBikeRequest) *PostBikesParams {
 	o.SetRequest(request)
 	return o
 }
 
 // SetRequest adds the request to the post bikes params
-func (o *PostBikesParams) SetRequest(request *models.InternalAdapterHandlerHTTPBikeRequest) {
+func (o *PostBikesParams) SetRequest(request *models.HTTPBikeRequest) {
 	o.Request = request
 }
 

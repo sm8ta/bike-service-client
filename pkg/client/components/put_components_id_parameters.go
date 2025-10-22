@@ -73,7 +73,7 @@ type PutComponentsIDParams struct {
 
 	   Данные для обновления
 	*/
-	Request *models.InternalAdapterHandlerHTTPUpdateComponent
+	Request *models.HTTPUpdateComponent
 
 	timeout    time.Duration
 	Context    context.Context
@@ -140,13 +140,13 @@ func (o *PutComponentsIDParams) SetID(id string) {
 }
 
 // WithRequest adds the request to the put components ID params
-func (o *PutComponentsIDParams) WithRequest(request *models.InternalAdapterHandlerHTTPUpdateComponent) *PutComponentsIDParams {
+func (o *PutComponentsIDParams) WithRequest(request *models.HTTPUpdateComponent) *PutComponentsIDParams {
 	o.SetRequest(request)
 	return o
 }
 
 // SetRequest adds the request to the put components ID params
-func (o *PutComponentsIDParams) SetRequest(request *models.InternalAdapterHandlerHTTPUpdateComponent) {
+func (o *PutComponentsIDParams) SetRequest(request *models.HTTPUpdateComponent) {
 	o.Request = request
 }
 

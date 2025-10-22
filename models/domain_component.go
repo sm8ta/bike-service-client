@@ -15,10 +15,10 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// WebikeBikeMicroserviceNikitaInternalCoreDomainComponent webike bike microservice nikita internal core domain component
+// DomainComponent domain component
 //
-// swagger:model webike_bike_microservice_nikita_internal_core_domain.Component
-type WebikeBikeMicroserviceNikitaInternalCoreDomainComponent struct {
+// swagger:model domain.Component
+type DomainComponent struct {
 
 	// bike id
 	// Required: true
@@ -56,15 +56,15 @@ type WebikeBikeMicroserviceNikitaInternalCoreDomainComponent struct {
 	// Required: true
 	// Enum: ["handlebars","frame","wheels"]
 	Name struct {
-		WebikeBikeMicroserviceNikitaInternalCoreDomainComponentName
+		DomainComponentName
 	} `json:"name"`
 
 	// updated at
 	UpdatedAt string `json:"updated_at,omitempty"`
 }
 
-// Validate validates this webike bike microservice nikita internal core domain component
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) Validate(formats strfmt.Registry) error {
+// Validate validates this domain component
+func (m *DomainComponent) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateBikeID(formats); err != nil {
@@ -101,7 +101,7 @@ func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) Validate(forma
 	return nil
 }
 
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) validateBikeID(formats strfmt.Registry) error {
+func (m *DomainComponent) validateBikeID(formats strfmt.Registry) error {
 
 	if err := validate.Required("bike_id", "body", m.BikeID); err != nil {
 		return err
@@ -110,7 +110,7 @@ func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) validateBikeID
 	return nil
 }
 
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) validateBrand(formats strfmt.Registry) error {
+func (m *DomainComponent) validateBrand(formats strfmt.Registry) error {
 	if swag.IsZero(m.Brand) { // not required
 		return nil
 	}
@@ -122,7 +122,7 @@ func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) validateBrand(
 	return nil
 }
 
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) validateInstalledAt(formats strfmt.Registry) error {
+func (m *DomainComponent) validateInstalledAt(formats strfmt.Registry) error {
 
 	if err := validate.Required("installed_at", "body", m.InstalledAt); err != nil {
 		return err
@@ -131,7 +131,7 @@ func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) validateInstal
 	return nil
 }
 
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) validateInstalledMileage(formats strfmt.Registry) error {
+func (m *DomainComponent) validateInstalledMileage(formats strfmt.Registry) error {
 	if swag.IsZero(m.InstalledMileage) { // not required
 		return nil
 	}
@@ -143,7 +143,7 @@ func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) validateInstal
 	return nil
 }
 
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) validateMaxMileage(formats strfmt.Registry) error {
+func (m *DomainComponent) validateMaxMileage(formats strfmt.Registry) error {
 
 	if err := validate.Required("max_mileage", "body", m.MaxMileage); err != nil {
 		return err
@@ -160,7 +160,7 @@ func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) validateMaxMil
 	return nil
 }
 
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) validateModel(formats strfmt.Registry) error {
+func (m *DomainComponent) validateModel(formats strfmt.Registry) error {
 	if swag.IsZero(m.Model) { // not required
 		return nil
 	}
@@ -172,37 +172,37 @@ func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) validateModel(
 	return nil
 }
 
-var webikeBikeMicroserviceNikitaInternalCoreDomainComponentTypeNamePropEnum []any
+var domainComponentTypeNamePropEnum []any
 
 func init() {
 	var res []struct {
-		WebikeBikeMicroserviceNikitaInternalCoreDomainComponentName
+		DomainComponentName
 	}
 	if err := json.Unmarshal([]byte(`["handlebars","frame","wheels"]`), &res); err != nil {
 		panic(err)
 	}
 	for _, v := range res {
-		webikeBikeMicroserviceNikitaInternalCoreDomainComponentTypeNamePropEnum = append(webikeBikeMicroserviceNikitaInternalCoreDomainComponentTypeNamePropEnum, v)
+		domainComponentTypeNamePropEnum = append(domainComponentTypeNamePropEnum, v)
 	}
 }
 
 // prop value enum
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) validateNameEnum(path, location string, value *struct {
-	WebikeBikeMicroserviceNikitaInternalCoreDomainComponentName
+func (m *DomainComponent) validateNameEnum(path, location string, value *struct {
+	DomainComponentName
 }) error {
-	if err := validate.EnumCase(path, location, value, webikeBikeMicroserviceNikitaInternalCoreDomainComponentTypeNamePropEnum, true); err != nil {
+	if err := validate.EnumCase(path, location, value, domainComponentTypeNamePropEnum, true); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) validateName(formats strfmt.Registry) error {
+func (m *DomainComponent) validateName(formats strfmt.Registry) error {
 
 	return nil
 }
 
-// ContextValidate validate this webike bike microservice nikita internal core domain component based on the context it is used
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validate this domain component based on the context it is used
+func (m *DomainComponent) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidateName(ctx, formats); err != nil {
@@ -215,13 +215,13 @@ func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) ContextValidat
 	return nil
 }
 
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) contextValidateName(ctx context.Context, formats strfmt.Registry) error {
+func (m *DomainComponent) contextValidateName(ctx context.Context, formats strfmt.Registry) error {
 
 	return nil
 }
 
 // MarshalBinary interface implementation
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) MarshalBinary() ([]byte, error) {
+func (m *DomainComponent) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -229,8 +229,8 @@ func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) MarshalBinary(
 }
 
 // UnmarshalBinary interface implementation
-func (m *WebikeBikeMicroserviceNikitaInternalCoreDomainComponent) UnmarshalBinary(b []byte) error {
-	var res WebikeBikeMicroserviceNikitaInternalCoreDomainComponent
+func (m *DomainComponent) UnmarshalBinary(b []byte) error {
+	var res DomainComponent
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

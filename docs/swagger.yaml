@@ -1,6 +1,90 @@
 basePath: /
 definitions:
-  internal_adapter_handler_http.BikeRequest:
+  domain.Bike:
+    properties:
+      bike_id:
+        type: string
+      bike_name:
+        type: string
+      components:
+        items:
+          $ref: '#/definitions/domain.Component'
+        type: array
+      created_at:
+        type: string
+      mileage:
+        type: integer
+      model:
+        description: stels
+        type: string
+      type:
+        $ref: '#/definitions/domain.BikeType'
+      updated_at:
+        type: string
+      user_id:
+        type: string
+      year:
+        type: integer
+    type: object
+  domain.BikeType:
+    enum:
+    - bmx
+    - mtb
+    - road
+    type: string
+    x-enum-varnames:
+    - BMX
+    - MTB
+    - Road
+  domain.Component:
+    properties:
+      bike_id:
+        type: string
+      brand:
+        maxLength: 100
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      installed_at:
+        type: string
+      installed_mileage:
+        minimum: 0
+        type: integer
+      max_mileage:
+        maximum: 1000000
+        minimum: 1
+        type: integer
+      model:
+        maxLength: 100
+        type: string
+      name:
+        allOf:
+        - $ref: '#/definitions/domain.ComponentName'
+        enum:
+        - handlebars
+        - frame
+        - wheels
+      updated_at:
+        type: string
+    required:
+    - bike_id
+    - installed_at
+    - max_mileage
+    - name
+    type: object
+  domain.ComponentName:
+    enum:
+    - handlebars
+    - frame
+    - wheels
+    type: string
+    x-enum-varnames:
+    - Handlebars
+    - Frame
+    - Wheels
+  http.BikeRequest:
     properties:
       mileage:
         example: 1500
@@ -16,7 +100,7 @@ definitions:
     - model
     - type
     type: object
-  internal_adapter_handler_http.BikeWithUserResponse:
+  http.BikeWithUserResponse:
     properties:
       bike_id:
         example: 123e4567-e89b-12d3-a456-426614174000
@@ -28,9 +112,9 @@ definitions:
         example: Mountain Bike Pro
         type: string
       user:
-        $ref: '#/definitions/internal_adapter_handler_http.User'
+        $ref: '#/definitions/http.User'
     type: object
-  internal_adapter_handler_http.ComponentRequest:
+  http.ComponentRequest:
     properties:
       bike_id:
         example: 123e4567-e89b-12d3-a456-426614174000
@@ -56,7 +140,7 @@ definitions:
     - max_mileage
     - name
     type: object
-  internal_adapter_handler_http.UpdateBike:
+  http.UpdateBike:
     properties:
       mileage:
         example: 2000
@@ -68,7 +152,7 @@ definitions:
         example: mountain
         type: string
     type: object
-  internal_adapter_handler_http.UpdateComponent:
+  http.UpdateComponent:
     properties:
       brand:
         example: Shimano
@@ -86,7 +170,7 @@ definitions:
         example: handlebars
         type: string
     type: object
-  internal_adapter_handler_http.User:
+  http.User:
     properties:
       name:
         example: Иван Иванов
@@ -95,7 +179,7 @@ definitions:
         example: 123e4567-e89b-12d3-a456-426614174000
         type: string
     type: object
-  internal_adapter_handler_http.errorResponse:
+  http.errorResponse:
     properties:
       message:
         example: Error
@@ -104,7 +188,7 @@ definitions:
         example: false
         type: boolean
     type: object
-  internal_adapter_handler_http.successResponse:
+  http.successResponse:
     properties:
       data:
         type: object
@@ -115,96 +199,12 @@ definitions:
         example: true
         type: boolean
     type: object
-  webike_bike_microservice_nikita_internal_core_domain.Bike:
-    properties:
-      bike_id:
-        type: string
-      bike_name:
-        type: string
-      components:
-        items:
-          $ref: '#/definitions/webike_bike_microservice_nikita_internal_core_domain.Component'
-        type: array
-      created_at:
-        type: string
-      mileage:
-        type: integer
-      model:
-        description: stels
-        type: string
-      type:
-        $ref: '#/definitions/webike_bike_microservice_nikita_internal_core_domain.BikeType'
-      updated_at:
-        type: string
-      user_id:
-        type: string
-      year:
-        type: integer
-    type: object
-  webike_bike_microservice_nikita_internal_core_domain.BikeType:
-    enum:
-    - bmx
-    - mtb
-    - road
-    type: string
-    x-enum-varnames:
-    - BMX
-    - MTB
-    - Road
-  webike_bike_microservice_nikita_internal_core_domain.Component:
-    properties:
-      bike_id:
-        type: string
-      brand:
-        maxLength: 100
-        type: string
-      created_at:
-        type: string
-      id:
-        type: string
-      installed_at:
-        type: string
-      installed_mileage:
-        minimum: 0
-        type: integer
-      max_mileage:
-        maximum: 1000000
-        minimum: 1
-        type: integer
-      model:
-        maxLength: 100
-        type: string
-      name:
-        allOf:
-        - $ref: '#/definitions/webike_bike_microservice_nikita_internal_core_domain.ComponentName'
-        enum:
-        - handlebars
-        - frame
-        - wheels
-      updated_at:
-        type: string
-    required:
-    - bike_id
-    - installed_at
-    - max_mileage
-    - name
-    type: object
-  webike_bike_microservice_nikita_internal_core_domain.ComponentName:
-    enum:
-    - handlebars
-    - frame
-    - wheels
-    type: string
-    x-enum-varnames:
-    - Handlebars
-    - Frame
-    - Wheels
 host: localhost:8081
 info:
   contact: {}
   description: API для управления байками
   title: Bike Microservice API
-  version: "1.0"
+  version: "1.1"
 paths:
   /bikes:
     post:
@@ -217,7 +217,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/internal_adapter_handler_http.BikeRequest'
+          $ref: '#/definitions/http.BikeRequest'
       produces:
       - application/json
       responses:
@@ -225,19 +225,19 @@ paths:
           description: Байк создан
           schema:
             allOf:
-            - $ref: '#/definitions/internal_adapter_handler_http.successResponse'
+            - $ref: '#/definitions/http.successResponse'
             - properties:
                 data:
-                  $ref: '#/definitions/webike_bike_microservice_nikita_internal_core_domain.Bike'
+                  $ref: '#/definitions/domain.Bike'
               type: object
         "400":
           description: Неверный запрос
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
         "401":
           description: Не авторизован
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
       security:
       - BearerAuth: []
       summary: Создать байк
@@ -260,15 +260,15 @@ paths:
         "200":
           description: Байк удален
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.successResponse'
+            $ref: '#/definitions/http.successResponse'
         "401":
           description: Не авторизован
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
         "403":
           description: Доступ запрещен
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
       security:
       - BearerAuth: []
       summary: Удалить байк
@@ -291,23 +291,23 @@ paths:
           description: Байк найден
           schema:
             allOf:
-            - $ref: '#/definitions/internal_adapter_handler_http.successResponse'
+            - $ref: '#/definitions/http.successResponse'
             - properties:
                 data:
-                  $ref: '#/definitions/webike_bike_microservice_nikita_internal_core_domain.Bike'
+                  $ref: '#/definitions/domain.Bike'
               type: object
         "401":
           description: Не авторизован
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
         "403":
           description: Доступ запрещен
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
         "404":
           description: Байк не найден
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
       security:
       - BearerAuth: []
       summary: Получить байк
@@ -328,7 +328,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/internal_adapter_handler_http.UpdateBike'
+          $ref: '#/definitions/http.UpdateBike'
       produces:
       - application/json
       responses:
@@ -336,23 +336,23 @@ paths:
           description: Байк обновлен
           schema:
             allOf:
-            - $ref: '#/definitions/internal_adapter_handler_http.successResponse'
+            - $ref: '#/definitions/http.successResponse'
             - properties:
                 data:
-                  $ref: '#/definitions/webike_bike_microservice_nikita_internal_core_domain.Bike'
+                  $ref: '#/definitions/domain.Bike'
               type: object
         "400":
           description: Неверный запрос
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
         "401":
           description: Не авторизован
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
         "403":
           description: Доступ запрещен
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
       security:
       - BearerAuth: []
       summary: Обновить байк
@@ -376,19 +376,19 @@ paths:
           description: Байк с компонентами
           schema:
             allOf:
-            - $ref: '#/definitions/internal_adapter_handler_http.successResponse'
+            - $ref: '#/definitions/http.successResponse'
             - properties:
                 data:
-                  $ref: '#/definitions/webike_bike_microservice_nikita_internal_core_domain.Bike'
+                  $ref: '#/definitions/domain.Bike'
               type: object
         "401":
           description: Не авторизован
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
         "404":
           description: Байк не найден
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
       security:
       - BearerAuth: []
       summary: Получить байк с компонентами
@@ -412,19 +412,19 @@ paths:
           description: Байк с пользователем
           schema:
             allOf:
-            - $ref: '#/definitions/internal_adapter_handler_http.successResponse'
+            - $ref: '#/definitions/http.successResponse'
             - properties:
                 data:
-                  $ref: '#/definitions/internal_adapter_handler_http.BikeWithUserResponse'
+                  $ref: '#/definitions/http.BikeWithUserResponse'
               type: object
         "401":
           description: Не авторизован
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
         "404":
           description: Байк не найден
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
       security:
       - BearerAuth: []
       summary: Получить байк с пользователем
@@ -442,21 +442,21 @@ paths:
           description: Список байков пользователя
           schema:
             allOf:
-            - $ref: '#/definitions/internal_adapter_handler_http.successResponse'
+            - $ref: '#/definitions/http.successResponse'
             - properties:
                 data:
                   items:
-                    $ref: '#/definitions/webike_bike_microservice_nikita_internal_core_domain.Bike'
+                    $ref: '#/definitions/domain.Bike'
                   type: array
               type: object
         "401":
           description: Не авторизован
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
         "500":
           description: Внутренняя ошибка сервера
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
       security:
       - BearerAuth: []
       summary: Получить байки пользователя по айди пользователя
@@ -473,31 +473,26 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/internal_adapter_handler_http.ComponentRequest'
+          $ref: '#/definitions/http.ComponentRequest'
       produces:
       - application/json
       responses:
         "201":
           description: Компонент создан
           schema:
-            allOf:
-            - $ref: '#/definitions/internal_adapter_handler_http.successResponse'
-            - properties:
-                data:
-                  $ref: '#/definitions/webike_bike_microservice_nikita_internal_core_domain.Component'
-              type: object
+            $ref: '#/definitions/http.successResponse'
         "400":
           description: Неверный запрос
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
         "401":
           description: Не авторизован
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
         "403":
           description: Доступ запрещен
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
       security:
       - BearerAuth: []
       summary: Создать компонент
@@ -520,15 +515,15 @@ paths:
         "200":
           description: Компонент удален
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.successResponse'
+            $ref: '#/definitions/http.successResponse'
         "401":
           description: Не авторизован
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
         "403":
           description: Доступ запрещен
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
       security:
       - BearerAuth: []
       summary: Удалить компонент
@@ -550,24 +545,19 @@ paths:
         "200":
           description: Компонент найден
           schema:
-            allOf:
-            - $ref: '#/definitions/internal_adapter_handler_http.successResponse'
-            - properties:
-                data:
-                  $ref: '#/definitions/webike_bike_microservice_nikita_internal_core_domain.Component'
-              type: object
+            $ref: '#/definitions/http.successResponse'
         "401":
           description: Не авторизован
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
         "403":
           description: Доступ запрещен
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
         "404":
           description: Компонент не найден
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
       security:
       - BearerAuth: []
       summary: Получить компонент
@@ -588,31 +578,26 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/internal_adapter_handler_http.UpdateComponent'
+          $ref: '#/definitions/http.UpdateComponent'
       produces:
       - application/json
       responses:
         "200":
           description: Компонент обновлен
           schema:
-            allOf:
-            - $ref: '#/definitions/internal_adapter_handler_http.successResponse'
-            - properties:
-                data:
-                  $ref: '#/definitions/webike_bike_microservice_nikita_internal_core_domain.Component'
-              type: object
+            $ref: '#/definitions/http.successResponse'
         "400":
           description: Неверный запрос
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
         "401":
           description: Не авторизован
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
         "403":
           description: Доступ запрещен
           schema:
-            $ref: '#/definitions/internal_adapter_handler_http.errorResponse'
+            $ref: '#/definitions/http.errorResponse'
       security:
       - BearerAuth: []
       summary: Обновить компонент

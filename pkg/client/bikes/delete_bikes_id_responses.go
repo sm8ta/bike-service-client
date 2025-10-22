@@ -59,7 +59,7 @@ DeleteBikesIDOK describes a response with status code 200, with default header v
 Байк удален
 */
 type DeleteBikesIDOK struct {
-	Payload *models.InternalAdapterHandlerHTTPSuccessResponse
+	Payload *models.HTTPSuccessResponse
 }
 
 // IsSuccess returns true when this delete bikes Id o k response has a 2xx status code
@@ -102,13 +102,13 @@ func (o *DeleteBikesIDOK) String() string {
 	return fmt.Sprintf("[DELETE /bikes/{id}][%d] deleteBikesIdOK %s", 200, payload)
 }
 
-func (o *DeleteBikesIDOK) GetPayload() *models.InternalAdapterHandlerHTTPSuccessResponse {
+func (o *DeleteBikesIDOK) GetPayload() *models.HTTPSuccessResponse {
 	return o.Payload
 }
 
 func (o *DeleteBikesIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.InternalAdapterHandlerHTTPSuccessResponse)
+	o.Payload = new(models.HTTPSuccessResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
@@ -129,7 +129,7 @@ DeleteBikesIDUnauthorized describes a response with status code 401, with defaul
 Не авторизован
 */
 type DeleteBikesIDUnauthorized struct {
-	Payload *models.InternalAdapterHandlerHTTPErrorResponse
+	Payload *models.HTTPErrorResponse
 }
 
 // IsSuccess returns true when this delete bikes Id unauthorized response has a 2xx status code
@@ -172,13 +172,13 @@ func (o *DeleteBikesIDUnauthorized) String() string {
 	return fmt.Sprintf("[DELETE /bikes/{id}][%d] deleteBikesIdUnauthorized %s", 401, payload)
 }
 
-func (o *DeleteBikesIDUnauthorized) GetPayload() *models.InternalAdapterHandlerHTTPErrorResponse {
+func (o *DeleteBikesIDUnauthorized) GetPayload() *models.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *DeleteBikesIDUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.InternalAdapterHandlerHTTPErrorResponse)
+	o.Payload = new(models.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
@@ -199,7 +199,7 @@ DeleteBikesIDForbidden describes a response with status code 403, with default h
 Доступ запрещен
 */
 type DeleteBikesIDForbidden struct {
-	Payload *models.InternalAdapterHandlerHTTPErrorResponse
+	Payload *models.HTTPErrorResponse
 }
 
 // IsSuccess returns true when this delete bikes Id forbidden response has a 2xx status code
@@ -242,13 +242,13 @@ func (o *DeleteBikesIDForbidden) String() string {
 	return fmt.Sprintf("[DELETE /bikes/{id}][%d] deleteBikesIdForbidden %s", 403, payload)
 }
 
-func (o *DeleteBikesIDForbidden) GetPayload() *models.InternalAdapterHandlerHTTPErrorResponse {
+func (o *DeleteBikesIDForbidden) GetPayload() *models.HTTPErrorResponse {
 	return o.Payload
 }
 
 func (o *DeleteBikesIDForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.InternalAdapterHandlerHTTPErrorResponse)
+	o.Payload = new(models.HTTPErrorResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {

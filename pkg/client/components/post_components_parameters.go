@@ -67,7 +67,7 @@ type PostComponentsParams struct {
 
 	   Данные компонента
 	*/
-	Request *models.InternalAdapterHandlerHTTPComponentRequest
+	Request *models.HTTPComponentRequest
 
 	timeout    time.Duration
 	Context    context.Context
@@ -123,13 +123,13 @@ func (o *PostComponentsParams) SetHTTPClient(client *http.Client) {
 }
 
 // WithRequest adds the request to the post components params
-func (o *PostComponentsParams) WithRequest(request *models.InternalAdapterHandlerHTTPComponentRequest) *PostComponentsParams {
+func (o *PostComponentsParams) WithRequest(request *models.HTTPComponentRequest) *PostComponentsParams {
 	o.SetRequest(request)
 	return o
 }
 
 // SetRequest adds the request to the post components params
-func (o *PostComponentsParams) SetRequest(request *models.InternalAdapterHandlerHTTPComponentRequest) {
+func (o *PostComponentsParams) SetRequest(request *models.HTTPComponentRequest) {
 	o.Request = request
 }
 
