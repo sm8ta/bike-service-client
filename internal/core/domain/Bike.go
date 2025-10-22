@@ -6,6 +6,8 @@ import (
 	"github.com/google/uuid"
 )
 
+// Bike represents a bicycle
+// swagger:model domain.Bike
 type Bike struct {
 	UserID     uuid.UUID    `json:"user_id"`
 	BikeID     uuid.UUID    `json:"bike_id"`

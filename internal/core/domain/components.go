@@ -6,6 +6,8 @@ import (
 	"github.com/google/uuid"
 )
 
+// ComponentName represents the name of a component
+// swagger:model domain.ComponentName
 type ComponentName string
 
 const (
@@ -14,6 +16,8 @@ const (
 	Wheels     ComponentName = "wheels"
 )
 
+// Component represents a bike component
+// swagger:model domain.Component
 type Component struct {
 	ID               uuid.UUID     `json:"id"`
 	BikeID           uuid.UUID     `json:"bike_id" validate:"required"`
