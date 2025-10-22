@@ -1,7 +1,7 @@
 package http
 
 import (
-	"webike_bike_microservice_nikita/internal/core/domain"
+	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/domain"
 
 	"github.com/gin-gonic/gin"
 )

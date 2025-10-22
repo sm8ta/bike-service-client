@@ -10,8 +10,8 @@ import (
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"webike_bike_microservice_nikita/pkg/client/bikes"
-	"webike_bike_microservice_nikita/pkg/client/components"
+	"github.com/sm8ta/webike_bike_microservice_nikita/pkg/client/bikes"
+	"github.com/sm8ta/webike_bike_microservice_nikita/pkg/client/components"
 )
 
 // Default bike service HTTP client.

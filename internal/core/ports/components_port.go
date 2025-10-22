@@ -2,7 +2,7 @@ package ports
 
 import (
 	"context"
-	"webike_bike_microservice_nikita/internal/core/domain"
+	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/domain"
 
 	"github.com/google/uuid"
 )
