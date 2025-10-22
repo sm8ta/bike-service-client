@@ -17,7 +17,7 @@ const (
 type Component struct {
 	ID               uuid.UUID     `json:"id"`
 	BikeID           uuid.UUID     `json:"bike_id" validate:"required"`
-	Name             ComponentName `json:"name" validate:"required,oneof=handlebars frame wheels"`
+	Name             ComponentName `json:"name" validate:"required"`
 	Brand            string        `json:"brand,omitempty" validate:"max=100"`
 	Model            string        `json:"model,omitempty" validate:"max=100"`
 	InstalledAt      time.Time     `json:"installed_at" validate:"required"`

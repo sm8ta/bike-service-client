@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+
 	"github.com/sm8ta/webike_bike_microservice_nikita/internal/adapter/handler/http"
 	"github.com/sm8ta/webike_bike_microservice_nikita/internal/adapter/logger"
 	"github.com/sm8ta/webike_bike_microservice_nikita/internal/adapter/postgres"
@@ -16,6 +17,11 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/pressly/goose"
 	redisClient "github.com/redis/go-redis/v9"
+
+	// User client
+	httptransport "github.com/go-openapi/runtime/client"
+	"github.com/go-openapi/strfmt"
+	userclient "github.com/sm8ta/webike_user_microservice_nikita/pkg/client"
 )
 
 type App struct {
@@ -62,6 +68,7 @@ func New(ctx context.Context, cfg *config.Container) (*App, error) {
 	if err := goose.Up(db, "./internal/adapter/postgres/migrations"); err != nil {
 		return nil, fmt.Errorf("Failed to run migrations:%w", err)
 	}
+
 	// Validate
 	validate := validator.New()
 
@@ -76,9 +83,17 @@ func New(ctx context.Context, cfg *config.Container) (*App, error) {
 	bikeService := services.NewBikeService(bikeRepo, componentRepo, loggerAdapter, validate, cacheAdapter)
 	componentService := services.NewComponentService(componentRepo, loggerAdapter, validate, cacheAdapter)
 
+	// Initialize User HTTP client
+	transport := httptransport.New(
+		cfg.UserService.URL, // "localhost:8080"
+		"/",
+		[]string{"http"},
+	)
+	userClient := userclient.New(transport, strfmt.Default)
+
 	// HTTP Handlers
 	tokenService := http.NewJWTTokenService(cfg.Token.Secret, loggerAdapter)
-	bikeHandler := http.NewBikeHandler(bikeService, loggerAdapter, metrics) //!!!!! убрать грпс из BikeHandler
+	bikeHandler := http.NewBikeHandler(bikeService, loggerAdapter, metrics, userClient) // <-- добавь userClient
 	componentHandler := http.NewComponentHandler(componentService, bikeService, loggerAdapter, metrics)
 
 	// Init HTTP router
@@ -106,7 +121,6 @@ func New(ctx context.Context, cfg *config.Container) (*App, error) {
 
 // Runs all services
 func (a *App) Run() {
-
 	// Start HTTP server
 	go func() {
 		listenAddr := fmt.Sprintf("%s:%s", a.Config.HTTP.URL, a.Config.HTTP.Port)
