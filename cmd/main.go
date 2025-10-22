@@ -7,7 +7,6 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
-	_ "webike_bike_microservice_nikita/docs"
 	"webike_bike_microservice_nikita/internal/app"
 	"webike_bike_microservice_nikita/internal/config"
 
@@ -15,7 +14,7 @@ import (
 )
 
 // @title Bike Microservice API
-// @version 1.0
+// @version 1.1
 // @description API для управления байками
 
 // @host localhost:8081

@@ -2,20 +2,17 @@ package config
 
 import (
 	"os"
-	"strconv"
 
 	"github.com/joho/godotenv"
 )
 
 type (
 	Container struct {
-		App         *App
-		Token       *Token
-		DB          *DB
-		HTTP        *HTTP
-		Redis       *Redis
-		GRPC        *GRPC
-		UserService *UserService
+		App   *App
+		Token *Token
+		DB    *DB
+		HTTP  *HTTP
+		Redis *Redis
 	}
 
 	App struct {
@@ -46,14 +43,6 @@ type (
 	Redis struct {
 		Address  string
 		Password string
-	}
-
-	GRPC struct {
-		Port string
-	}
-
-	UserService struct {
-		Address string
 	}
 )
 
@@ -95,29 +84,11 @@ func New() (*Container, error) {
 		Password: os.Getenv("REDIS_PASSWORD"),
 	}
 
-	grpc := &GRPC{
-		Port: os.Getenv("GRPC_PORT"),
-	}
-
-	userService := &UserService{
-		Address: os.Getenv("USER_SERVICE_ADDRESS"),
-	}
-
 	return &Container{
-		App:         app,
-		Token:       token,
-		DB:          db,
-		HTTP:        http,
-		Redis:       redis,
-		GRPC:        grpc,
-		UserService: userService,
+		App:   app,
+		Token: token,
+		DB:    db,
+		HTTP:  http,
+		Redis: redis,
 	}, nil
-}
-
-func (g *GRPC) PortInt() int {
-	port, err := strconv.Atoi(g.Port)
-	if err != nil {
-		return 50052 // дефолт если ошибка
-	}
-	return port
 }

@@ -6,18 +6,15 @@ import (
 	"webike_bike_microservice_nikita/internal/core/domain"
 	"webike_bike_microservice_nikita/internal/core/ports"
 	"webike_bike_microservice_nikita/internal/core/services"
-	"webike_bike_microservice_nikita/internal/grpc"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	webikev1 "github.com/sm8ta/grpc_webike/gen/go/webike"
 )
 
 type BikeHandler struct {
 	bikeService *services.BikeService
 	logger      ports.LoggerPort
 	metrics     ports.MetricsPort
-	userClient  *grpc.UserClient
 }
 
 type BikeRequest struct {
@@ -48,13 +45,11 @@ func NewBikeHandler(
 	bikeService *services.BikeService,
 	logger ports.LoggerPort,
 	metrics ports.MetricsPort,
-	userClient *grpc.UserClient,
 ) *BikeHandler {
 	return &BikeHandler{
 		bikeService: bikeService,
 		logger:      logger,
 		metrics:     metrics,
-		userClient:  userClient,
 	}
 }
 
@@ -477,32 +472,12 @@ func (h *BikeHandler) GetBikeWithUser(c *gin.Context) {
 		return
 	}
 
-	userResp, err := h.userClient.GetUser(c.Request.Context(), bike.UserID.String())
-	if err != nil {
-		h.logger.Warn("Failed to get user", map[string]interface{}{
-			"error":   err.Error(),
-			"user_id": bike.UserID.String(),
-		})
-		userResp = nil
-	}
-
 	response := BikeWithUserResponse{
 		BikeID:  bike.BikeID.String(),
 		Model:   bike.Model,
 		Mileage: bike.Mileage,
-		User:    convertUser(userResp),
+		User:    nil,
 	}
 
 	newSuccessResponse(c, http.StatusOK, "Bike with user found", response)
-}
-
-func convertUser(resp *webikev1.GetUserResponse) *User {
-	if resp == nil {
-		return nil
-	}
-
-	return &User{
-		UserID: resp.UserId,
-		Name:   resp.Name,
-	}
 }

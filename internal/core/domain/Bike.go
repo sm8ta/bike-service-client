@@ -19,6 +19,8 @@ type Bike struct {
 	UpdatedAt  time.Time    `json:"updated_at"`
 }
 
+// BikeType представляет тип байка
+// @enum mountain,road,hybrid,electric
 type BikeType string
 
 const (
