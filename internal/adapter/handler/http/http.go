@@ -18,6 +18,16 @@ import (
 	"github.com/google/uuid"
 )
 
+// DomainUser заглушка для Swagger (копия models.DomainUser)
+// swagger:model models.DomainUser
+type DomainUser struct {
+	ID        string `json:"id" example:"123e4567-e89b-12d3-a456-426614174000"`
+	Email     string `json:"email" example:"user@example.com"`
+	FirstName string `json:"first_name" example:"Иван"`
+	LastName  string `json:"last_name" example:"Иванов"`
+	Role      string `json:"role" example:"user"`
+}
+
 type BikeHandler struct {
 	bikeService *services.BikeService
 	logger      ports.LoggerPort
@@ -65,7 +75,7 @@ func NewBikeHandler(
 // @Accept json
 // @Produce json
 // @Param request body BikeRequest true "Данные байка"
-// @Success 201 {object} successResponse "Байк создан"
+// @Success 201 {object} domain.Bike "Байк создан"
 // @Failure 400 {object} errorResponse "Неверный запрос"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Router /bikes [post]
@@ -125,7 +135,7 @@ func (h *BikeHandler) CreateBike(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path string true "ID байка" example:"jdk2-fsjmk-daslkdo2-321md-jsnlaljdn"
-// @Success 200 {object} successResponse "Байк найден"
+// @Success 200 {object} domain.Bike "Байк найден"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Failure 403 {object} errorResponse "Доступ запрещен"
 // @Failure 404 {object} errorResponse "Байк не найден"
@@ -177,7 +187,7 @@ func (h *BikeHandler) GetBike(c *gin.Context) {
 // @Security BearerAuth
 // @Accept json
 // @Produce json
-// @Success 200 {object} successResponse "Список байков пользователя"
+// @Success 200 {object} []domain.Bike "Список байков пользователя"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Failure 500 {object} errorResponse "Внутренняя ошибка сервера"
 // @Router /bikes/my [get]
@@ -217,7 +227,7 @@ func (h *BikeHandler) GetMyBikes(c *gin.Context) {
 // @Produce json
 // @Param id path string true "ID байка" example:"jdk2-fsjmk-daslkdo2-321md-jsnlaljdn"
 // @Param request body UpdateBike true "Данные для обновления"
-// @Success 200 {object} successResponse"Байк обновлен"
+// @Success 200 {object} domain.Bike "Байк обновлен"
 // @Failure 400 {object} errorResponse "Неверный запрос"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Failure 403 {object} errorResponse "Доступ запрещен"
@@ -383,8 +393,9 @@ func (h *BikeHandler) DeleteBike(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path string true "ID байка" example:"jdk2-fsjmk-daslkdo2-321md-jsnlaljdn"
-// @Success 200 {object} successResponse "Байк с компонентами"
+// @Success 200 {object} domain.Bike "Байк с компонентами"
 // @Failure 401 {object} errorResponse "Не авторизован"
+// @Failure 403 {object} errorResponse "Доступ запрещен"
 // @Failure 404 {object} errorResponse "Байк не найден"
 // @Router /bikes/{id}/with-components [get]
 func (h *BikeHandler) GetBikeWithComponents(c *gin.Context) {
@@ -435,8 +446,9 @@ func (h *BikeHandler) GetBikeWithComponents(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path string true "ID байка" example:"jdk2-fsjmk-daslkdo2-321md-jsnlaljdn"
-// @Success 200 {object} successResponse "Байк с пользователем"
+// @Success 200 {object} BikeWithUserResponse "Байк с пользователем"
 // @Failure 401 {object} errorResponse "Не авторизован"
+// @Failure 403 {object} errorResponse "Доступ запрещен"
 // @Failure 404 {object} errorResponse "Байк не найден"
 // @Router /bikes/{id}/with-user [get]
 func (h *BikeHandler) GetBikeWithUser(c *gin.Context) {
@@ -477,7 +489,7 @@ func (h *BikeHandler) GetBikeWithUser(c *gin.Context) {
 		return
 	}
 
-	params := users.NewGetUsersIDParams() // <-- ДОБАВЬ ЭТУ СТРОКУ!
+	params := users.NewGetUsersIDParams()
 	params.ID = bike.UserID.String()
 	params.Context = c.Request.Context()
 

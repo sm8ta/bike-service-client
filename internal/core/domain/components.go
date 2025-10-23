@@ -6,17 +6,6 @@ import (
 	"github.com/google/uuid"
 )
 
-// ComponentName represents the name of a component
-// swagger:model domain.ComponentName
-type ComponentName string
-
-const (
-	Handlebars ComponentName = "handlebars"
-	Frame      ComponentName = "frame"
-	Wheels     ComponentName = "wheels"
-)
-
-// Component represents a bike component
 // swagger:model domain.Component
 type Component struct {
 	ID               uuid.UUID     `json:"id"`
@@ -30,6 +19,14 @@ type Component struct {
 	CreatedAt        time.Time     `json:"created_at"`
 	UpdatedAt        time.Time     `json:"updated_at"`
 }
+
+type ComponentName string
+
+const (
+	Handlebars ComponentName = "handlebars"
+	Frame      ComponentName = "frame"
+	Wheels     ComponentName = "wheels"
+)
 
 func (c *Component) CurrentMileage(bikeMileage int) int {
 	return bikeMileage - c.InstalledMileage

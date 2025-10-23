@@ -57,7 +57,7 @@ func NewComponentHandler(
 // @Accept json
 // @Produce json
 // @Param request body ComponentRequest true "Данные компонента"
-// @Success 201 {object} successResponse "Компонент создан"
+// @Success 201 {object} domain.Component "Компонент создан"
 // @Failure 400 {object} errorResponse "Неверный запрос"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Failure 403 {object} errorResponse "Доступ запрещен"
@@ -151,7 +151,7 @@ func (h *ComponentHandler) CreateComponent(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path string true "ID компонента" example:"jdk2-fsjmk-daslkdo2-321md-jsnlaljdn"
-// @Success 200 {object} successResponse "Компонент найден"
+// @Success 200 {object} domain.Component "Компонент найден"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Failure 403 {object} errorResponse "Доступ запрещен"
 // @Failure 404 {object} errorResponse "Компонент не найден"
@@ -216,10 +216,11 @@ func (h *ComponentHandler) GetComponent(c *gin.Context) {
 // @Produce json
 // @Param id path string true "ID компонента" example:"jdk2-fsjmk-daslkdo2-321md-jsnlaljdn"
 // @Param request body UpdateComponent true "Данные для обновления"
-// @Success 200 {object} successResponse "Компонент обновлен"
+// @Success 200 {object} domain.Component "Компонент обновлен"
 // @Failure 400 {object} errorResponse "Неверный запрос"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Failure 403 {object} errorResponse "Доступ запрещен"
+// @Failure 404 {object} errorResponse "Компонент не найден"
 // @Router /components/{id} [put]
 func (h *ComponentHandler) UpdateComponent(c *gin.Context) {
 	start := time.Now()
@@ -332,10 +333,11 @@ func (h *ComponentHandler) UpdateComponent(c *gin.Context) {
 // @Security BearerAuth
 // @Accept json
 // @Produce json
-// @Param id path string true "ID компонента" example:"jdk2-fsjmk-daslkdo2-321md-jsnlaljdn"
+// @Param id path string true "ID компонента" example:"123e4567-e89b-12d3-a456-426614174000"
 // @Success 200 {object} successResponse "Компонент удален"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Failure 403 {object} errorResponse "Доступ запрещен"
+// @Failure 404 {object} errorResponse "Компонент не найден"
 // @Router /components/{id} [delete]
 func (h *ComponentHandler) DeleteComponent(c *gin.Context) {
 	start := time.Now()
