@@ -6,7 +6,6 @@ import (
 	"github.com/google/uuid"
 )
 
-// Bike represents a bicycle
 // swagger:model domain.Bike
 type Bike struct {
 	UserID     uuid.UUID    `json:"user_id"`
@@ -21,8 +20,6 @@ type Bike struct {
 	UpdatedAt  time.Time    `json:"updated_at"`
 }
 
-// BikeType представляет тип байка
-// @enum mountain,road,hybrid,electric
 type BikeType string
 
 const (
