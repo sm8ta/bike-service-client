@@ -65,7 +65,7 @@ func NewBikeHandler(
 // @Accept json
 // @Produce json
 // @Param request body BikeRequest true "Данные байка"
-// @Success 201 {object} domain.Bike "Байк создан"
+// @Success 201 {object} successResponse "Байк создан"
 // @Failure 400 {object} errorResponse "Неверный запрос"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Router /bikes [post]
@@ -125,7 +125,7 @@ func (h *BikeHandler) CreateBike(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path string true "ID байка" example:"jdk2-fsjmk-daslkdo2-321md-jsnlaljdn"
-// @Success 200 {object} domain.Bike "Байк найден"
+// @Success 200 {object} successResponse "Байк найден"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Failure 403 {object} errorResponse "Доступ запрещен"
 // @Failure 404 {object} errorResponse "Байк не найден"
@@ -177,7 +177,7 @@ func (h *BikeHandler) GetBike(c *gin.Context) {
 // @Security BearerAuth
 // @Accept json
 // @Produce json
-// @Success 200 {object} []domain.Bike "Список байков пользователя"
+// @Success 200 {object} successResponse "Список байков пользователя"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Failure 500 {object} errorResponse "Внутренняя ошибка сервера"
 // @Router /bikes/my [get]
@@ -383,7 +383,7 @@ func (h *BikeHandler) DeleteBike(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path string true "ID байка" example:"jdk2-fsjmk-daslkdo2-321md-jsnlaljdn"
-// @Success 200 {object} domain.Bike "Байк с компонентами"
+// @Success 200 {object} successResponse "Байк с компонентами"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Failure 403 {object} errorResponse "Доступ запрещен"
 // @Failure 404 {object} errorResponse "Байк не найден"
@@ -496,6 +496,7 @@ func (h *BikeHandler) GetBikeWithUser(c *gin.Context) {
 	if err != nil {
 		h.logger.Warn("Failed to get user from User service", map[string]interface{}{
 			"error":   err.Error(),
+			"bike_id": bikeID,
 			"user_id": bike.UserID.String(),
 		})
 		user = nil

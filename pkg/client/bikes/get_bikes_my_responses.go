@@ -59,7 +59,7 @@ GetBikesMyOK describes a response with status code 200, with default header valu
 Список байков пользователя
 */
 type GetBikesMyOK struct {
-	Payload []*models.DomainBike
+	Payload *models.HTTPSuccessResponse
 }
 
 // IsSuccess returns true when this get bikes my o k response has a 2xx status code
@@ -102,14 +102,16 @@ func (o *GetBikesMyOK) String() string {
 	return fmt.Sprintf("[GET /bikes/my][%d] getBikesMyOK %s", 200, payload)
 }
 
-func (o *GetBikesMyOK) GetPayload() []*models.DomainBike {
+func (o *GetBikesMyOK) GetPayload() *models.HTTPSuccessResponse {
 	return o.Payload
 }
 
 func (o *GetBikesMyOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
+	o.Payload = new(models.HTTPSuccessResponse)
+
 	// response payload
-	if err := consumer.Consume(response.Body(), &o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
+	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
 		return err
 	}
 

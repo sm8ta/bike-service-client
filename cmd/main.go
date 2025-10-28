@@ -8,6 +8,7 @@ import (
 	"syscall"
 	"time"
 
+	_ "github.com/sm8ta/webike_bike_microservice_nikita/docs"
 	"github.com/sm8ta/webike_bike_microservice_nikita/internal/app"
 	"github.com/sm8ta/webike_bike_microservice_nikita/internal/config"
 
