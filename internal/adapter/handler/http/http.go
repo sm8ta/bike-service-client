@@ -5,34 +5,24 @@ import (
 	"strings"
 	"time"
 
+	"github.com/gin-gonic/gin"
 	"github.com/go-openapi/runtime"
 	httptransport "github.com/go-openapi/runtime/client"
+	"github.com/google/uuid"
 	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/domain"
 	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/ports"
 	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/services"
 	"github.com/sm8ta/webike_user_microservice_nikita/models"
-	userclient "github.com/sm8ta/webike_user_microservice_nikita/pkg/client"
+	user_client "github.com/sm8ta/webike_user_microservice_nikita/pkg/client"
+
 	"github.com/sm8ta/webike_user_microservice_nikita/pkg/client/users"
-
-	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 )
-
-// DomainUser заглушка для Swagger (копия models.DomainUser)
-// swagger:model models.DomainUser
-type DomainUser struct {
-	ID        string `json:"id" example:"123e4567-e89b-12d3-a456-426614174000"`
-	Email     string `json:"email" example:"user@example.com"`
-	FirstName string `json:"first_name" example:"Иван"`
-	LastName  string `json:"last_name" example:"Иванов"`
-	Role      string `json:"role" example:"user"`
-}
 
 type BikeHandler struct {
 	bikeService *services.BikeService
 	logger      ports.LoggerPort
 	metrics     ports.MetricsPort
-	userClient  *userclient.UserService
+	userClient  *user_client.UserMicroservice
 }
 
 type BikeRequest struct {
@@ -48,17 +38,17 @@ type UpdateBike struct {
 }
 
 type BikeWithUserResponse struct {
-	BikeID  string             `json:"bike_id" example:"123e4567-e89b-12d3-a456-426614174000"`
-	Model   string             `json:"model" example:"Mountain Bike Pro"`
-	Mileage int                `json:"mileage" example:"1500"`
-	User    *models.DomainUser `json:"user"`
+	BikeID  string `json:"bike_id" example:"123e4567-e89b-12d3-a456-426614174000"`
+	Model   string `json:"model" example:"Mountain Bike Pro"`
+	Mileage int    `json:"mileage" example:"1500"`
+	User    *models.HTTPSuccessResponse
 }
 
 func NewBikeHandler(
 	bikeService *services.BikeService,
 	logger ports.LoggerPort,
 	metrics ports.MetricsPort,
-	userClient *userclient.UserService,
+	userClient *user_client.UserMicroservice,
 ) *BikeHandler {
 	return &BikeHandler{
 		bikeService: bikeService,
@@ -446,7 +436,7 @@ func (h *BikeHandler) GetBikeWithComponents(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path string true "ID байка" example:"jdk2-fsjmk-daslkdo2-321md-jsnlaljdn"
-// @Success 200 {object} BikeWithUserResponse "Байк с пользователем"
+// @Success 200 {object} successResponse "Байк с пользователем"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Failure 403 {object} errorResponse "Доступ запрещен"
 // @Failure 404 {object} errorResponse "Байк не найден"
@@ -502,17 +492,15 @@ func (h *BikeHandler) GetBikeWithUser(c *gin.Context) {
 
 	userResp, err := h.userClient.Users.GetUsersID(params, authInfo)
 
-	var user *models.DomainUser
+	var user *models.HTTPSuccessResponse
 	if err != nil {
 		h.logger.Warn("Failed to get user from User service", map[string]interface{}{
 			"error":   err.Error(),
 			"user_id": bike.UserID.String(),
 		})
 		user = nil
-	} else if userData, ok := userResp.Payload.Data.(*models.DomainUser); ok {
-		user = userData
 	} else {
-		user = nil
+		user = userResp.Payload
 	}
 
 	response := BikeWithUserResponse{
