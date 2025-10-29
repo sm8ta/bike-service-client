@@ -82,7 +82,7 @@ func New(ctx context.Context, cfg *config.Container) (*App, error) {
 	componentService := services.NewComponentService(componentRepo, loggerAdapter, validate, cacheAdapter)
 
 	// User service client init
-	transport := httptransport.New("localhost:8080", "", []string{"http"})
+	transport := httptransport.New(cfg.UserService.URL, "", []string{"http"})
 	userClient := user_client.New(transport, strfmt.Default)
 
 	// HTTP Handlers
