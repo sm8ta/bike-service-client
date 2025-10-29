@@ -35,7 +35,7 @@ type DomainBike struct {
 	// mileage
 	Mileage int64 `json:"mileage,omitempty"`
 
-	// stels
+	// model
 	Model string `json:"model,omitempty"`
 
 	// type

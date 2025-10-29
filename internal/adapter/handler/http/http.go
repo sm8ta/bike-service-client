@@ -1,6 +1,7 @@
 package http
 
 import (
+	"encoding/json"
 	"net/http"
 	"strings"
 	"time"
@@ -12,7 +13,6 @@ import (
 	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/domain"
 	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/ports"
 	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/services"
-	"github.com/sm8ta/webike_user_microservice_nikita/models"
 	user_client "github.com/sm8ta/webike_user_microservice_nikita/pkg/client"
 
 	"github.com/sm8ta/webike_user_microservice_nikita/pkg/client/users"
@@ -37,11 +37,18 @@ type UpdateBike struct {
 	Mileage *int    `json:"mileage,omitempty" example:"2000"`
 }
 
-type BikeWithUserResponse struct {
-	BikeID  string `json:"bike_id" example:"123e4567-e89b-12d3-a456-426614174000"`
-	Model   string `json:"model" example:"Mountain Bike Pro"`
-	Mileage int    `json:"mileage" example:"1500"`
-	User    *models.HTTPSuccessResponse
+type UserData struct {
+	UserID string `json:"user_id" example:"12bd787e-05d0-44eb-97e2-8f10e3a564e2"`
+	Name   string `json:"name" example:"Иван Иванов"`
+	Email  string `json:"email" example:"ivan@example.com"`
+}
+
+type BikeWithUserData struct {
+	BikeID  string    `json:"bike_id" example:"123e4567-e89b-12d3-a456-426614174000"`
+	Model   string    `json:"model" example:"Mountain Bike Pro"`
+	Type    string    `json:"type" example:"mtb"`
+	Mileage int       `json:"mileage" example:"1500"`
+	User    *UserData `json:"user,omitempty"`
 }
 
 func NewBikeHandler(
@@ -492,23 +499,36 @@ func (h *BikeHandler) GetBikeWithUser(c *gin.Context) {
 
 	userResp, err := h.userClient.Users.GetUsersID(params, authInfo)
 
-	var user *models.HTTPSuccessResponse
+	var userData *UserData
 	if err != nil {
 		h.logger.Warn("Failed to get user from User service", map[string]interface{}{
 			"error":   err.Error(),
 			"bike_id": bikeID,
 			"user_id": bike.UserID.String(),
 		})
-		user = nil
+		userData = nil
 	} else {
-		user = userResp.Payload
+		// Распаковываем Data (interface{}) в структуру UserData
+		dataBytes, _ := json.Marshal(userResp.Payload.Data)
+		var user UserData
+		if err := json.Unmarshal(dataBytes, &user); err == nil {
+			userData = &user
+		} else {
+			h.logger.Warn("Failed to parse user data", map[string]interface{}{
+				"error":   err.Error(),
+				"bike_id": bikeID,
+				"user_id": bike.UserID.String(),
+			})
+			userData = nil
+		}
 	}
 
-	response := BikeWithUserResponse{
+	response := BikeWithUserData{
 		BikeID:  bike.BikeID.String(),
 		Model:   bike.Model,
+		Type:    string(bike.Type),
 		Mileage: bike.Mileage,
-		User:    user,
+		User:    userData,
 	}
 
 	newSuccessResponse(c, http.StatusOK, "Bike with user found", response)

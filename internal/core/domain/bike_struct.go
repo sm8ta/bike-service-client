@@ -11,8 +11,8 @@ type Bike struct {
 	BikeID     uuid.UUID    `json:"bike_id"`
 	BikeName   string       `json:"bike_name"`
 	Type       BikeType     `json:"type"`
-	Model      string       `json:"model"` // stels
-	Components []*Component `json:"components"`
+	Model      string       `json:"model"`
+	Components []*Component `json:"components,omitempty"`
 	Year       int          `json:"year"`
 	Mileage    int          `json:"mileage"`
 	CreatedAt  time.Time    `json:"created_at"`
