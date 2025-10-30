@@ -1,7 +1,6 @@
 package http
 
 import (
-	"fmt"
 	"net/http"
 	"strings"
 	"time"
@@ -14,6 +13,7 @@ import (
 	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/ports"
 	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/services"
 	"github.com/sm8ta/webike_user_microservice_nikita/models"
+	user_models "github.com/sm8ta/webike_user_microservice_nikita/models"
 	user_client "github.com/sm8ta/webike_user_microservice_nikita/pkg/client"
 	"github.com/sm8ta/webike_user_microservice_nikita/pkg/client/users"
 )
@@ -37,11 +37,98 @@ type UpdateBike struct {
 	Mileage *int    `json:"mileage,omitempty" example:"2000"`
 }
 
-type BikeWithUserResponse struct {
-	BikeID  string             `json:"bike_id" example:"3fa85f64-5717-4562-b3fc-2c963f66afa6"`
-	Model   string             `json:"model" example:"Giant TCR"`
-	Mileage int                `json:"mileage" example:"1500"`
-	User    *models.DomainUser `json:"user"`
+type CreateBikeResponse struct {
+	BikeID    uuid.UUID `json:"bike_id"`
+	UserID    uuid.UUID `json:"user_id"`
+	BikeName  string    `json:"bike_name"`
+	Model     string    `json:"model"`
+	Type      string    `json:"type"`
+	Year      int       `json:"year"`
+	Mileage   int       `json:"mileage"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+type GetBikeResponse struct {
+	BikeID    uuid.UUID `json:"bike_id"`
+	UserID    uuid.UUID `json:"user_id"`
+	BikeName  string    `json:"bike_name"`
+	Model     string    `json:"model"`
+	Type      string    `json:"type"`
+	Year      int       `json:"year"`
+	Mileage   int       `json:"mileage"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+}
+
+type GetMyBikesResponse struct {
+	Bikes []BikeInfo `json:"bikes"`
+	Count int        `json:"count"`
+}
+
+type BikeInfo struct {
+	BikeID    uuid.UUID `json:"bike_id"`
+	UserID    uuid.UUID `json:"user_id"`
+	BikeName  string    `json:"bike_name"`
+	Model     string    `json:"model"`
+	Type      string    `json:"type"`
+	Year      int       `json:"year"`
+	Mileage   int       `json:"mileage"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+}
+
+type UpdateBikeResponse struct {
+	BikeID    uuid.UUID `json:"bike_id"`
+	UserID    uuid.UUID `json:"user_id"`
+	BikeName  string    `json:"bike_name"`
+	Model     string    `json:"model"`
+	Type      string    `json:"type"`
+	Year      int       `json:"year"`
+	Mileage   int       `json:"mileage"`
+	UpdatedAt time.Time `json:"updated_at"`
+}
+
+type DeleteBikeResponse struct {
+	Message string `json:"message"`
+}
+
+type GetBikeWithComponentsResponse struct {
+	BikeID     uuid.UUID       `json:"bike_id"`
+	UserID     uuid.UUID       `json:"user_id"`
+	BikeName   string          `json:"bike_name"`
+	Model      string          `json:"model"`
+	Type       string          `json:"type"`
+	Year       int             `json:"year"`
+	Mileage    int             `json:"mileage"`
+	Components []ComponentInfo `json:"components"`
+	CreatedAt  time.Time       `json:"created_at"`
+	UpdatedAt  time.Time       `json:"updated_at"`
+}
+
+type ComponentInfo struct {
+	ID               uuid.UUID `json:"id"`
+	BikeID           uuid.UUID `json:"bike_id"`
+	Name             string    `json:"name"`
+	Brand            string    `json:"brand"`
+	Model            string    `json:"model"`
+	InstalledAt      time.Time `json:"installed_at"`
+	InstalledMileage int       `json:"installed_mileage"`
+	MaxMileage       int       `json:"max_mileage"`
+	CreatedAt        time.Time `json:"created_at"`
+	UpdatedAt        time.Time `json:"updated_at"`
+}
+
+type GetBikeWithUserResponse struct {
+	BikeID    uuid.UUID                        `json:"bike_id"`
+	UserID    uuid.UUID                        `json:"user_id"`
+	BikeName  string                           `json:"bike_name"`
+	Model     string                           `json:"model"`
+	Type      string                           `json:"type"`
+	Year      int                              `json:"year"`
+	Mileage   int                              `json:"mileage"`
+	User      *user_models.HTTPGetUserResponse `json:"user,omitempty"`
+	CreatedAt time.Time                        `json:"created_at"`
+	UpdatedAt time.Time                        `json:"updated_at"`
 }
 
 func NewBikeHandler(
@@ -66,7 +153,7 @@ func NewBikeHandler(
 // @Accept json
 // @Produce json
 // @Param request body BikeRequest true "Данные байка"
-// @Success 201 {object} successResponse "Байк создан"
+// @Success 201 {object} CreateBikeResponse "Байк создан"
 // @Failure 400 {object} errorResponse "Неверный запрос"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Router /bikes [post]
@@ -116,7 +203,18 @@ func (h *BikeHandler) CreateBike(c *gin.Context) {
 		"user_id": createdBike.UserID,
 	})
 
-	newSuccessResponse(c, http.StatusCreated, "Bike created successfully", createdBike)
+	response := CreateBikeResponse{
+		BikeID:    createdBike.BikeID,
+		UserID:    createdBike.UserID,
+		BikeName:  createdBike.BikeName,
+		Model:     createdBike.Model,
+		Type:      string(createdBike.Type),
+		Year:      createdBike.Year,
+		Mileage:   createdBike.Mileage,
+		CreatedAt: createdBike.CreatedAt,
+	}
+
+	c.JSON(http.StatusCreated, response)
 }
 
 // @Summary Получить байк
@@ -126,7 +224,7 @@ func (h *BikeHandler) CreateBike(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path string true "ID байка" example:"jdk2-fsjmk-daslkdo2-321md-jsnlaljdn"
-// @Success 200 {object} successResponse "Байк найден"
+// @Success 200 {object} GetBikeResponse "Байк найден"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Failure 403 {object} errorResponse "Доступ запрещен"
 // @Failure 404 {object} errorResponse "Байк не найден"
@@ -158,7 +256,6 @@ func (h *BikeHandler) GetBike(c *gin.Context) {
 		newErrorResponse(c, http.StatusNotFound, "Bike not found")
 		return
 	}
-	// проверка на админа или владельца
 	if payload.Role != domain.Admin && payload.UserID != bike.UserID {
 		h.logger.Warn("Access denied to bike", map[string]interface{}{
 			"requester_id": payload.UserID.String(),
@@ -168,8 +265,19 @@ func (h *BikeHandler) GetBike(c *gin.Context) {
 		newErrorResponse(c, http.StatusForbidden, "Access denied")
 		return
 	}
+	response := GetBikeResponse{
+		BikeID:    bike.BikeID,
+		UserID:    bike.UserID,
+		BikeName:  bike.BikeName,
+		Model:     bike.Model,
+		Type:      string(bike.Type),
+		Year:      bike.Year,
+		Mileage:   bike.Mileage,
+		CreatedAt: bike.CreatedAt,
+		UpdatedAt: bike.UpdatedAt,
+	}
 
-	newSuccessResponse(c, http.StatusOK, "Bike found", bike)
+	c.JSON(http.StatusOK, response)
 }
 
 // @Summary Получить байки пользователя по айди пользователя
@@ -178,7 +286,7 @@ func (h *BikeHandler) GetBike(c *gin.Context) {
 // @Security BearerAuth
 // @Accept json
 // @Produce json
-// @Success 200 {object} successResponse "Список байков пользователя"
+// @Success 200 {object} GetMyBikesResponse "Список байков пользователя"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Failure 500 {object} errorResponse "Внутренняя ошибка сервера"
 // @Router /bikes/my [get]
@@ -206,8 +314,27 @@ func (h *BikeHandler) GetMyBikes(c *gin.Context) {
 		newErrorResponse(c, http.StatusInternalServerError, "Failed to get bikes")
 		return
 	}
+	bikeInfos := make([]BikeInfo, len(bikes))
+	for i, bike := range bikes {
+		bikeInfos[i] = BikeInfo{
+			BikeID:    bike.BikeID,
+			UserID:    bike.UserID,
+			BikeName:  bike.BikeName,
+			Model:     bike.Model,
+			Type:      string(bike.Type),
+			Year:      bike.Year,
+			Mileage:   bike.Mileage,
+			CreatedAt: bike.CreatedAt,
+			UpdatedAt: bike.UpdatedAt,
+		}
+	}
 
-	newSuccessResponse(c, http.StatusOK, "Bikes retrieved successfully", bikes)
+	response := GetMyBikesResponse{
+		Bikes: bikeInfos,
+		Count: len(bikeInfos),
+	}
+
+	c.JSON(http.StatusOK, response)
 }
 
 // @Summary Обновить байк
@@ -218,7 +345,7 @@ func (h *BikeHandler) GetMyBikes(c *gin.Context) {
 // @Produce json
 // @Param id path string true "ID байка" example:"jdk2-fsjmk-daslkdo2-321md-jsnlaljdn"
 // @Param request body UpdateBike true "Данные для обновления"
-// @Success 200 {object} successResponse "Байк обновлен"
+// @Success 200 {object} UpdateBikeResponse "Байк обновлен"
 // @Failure 400 {object} errorResponse "Неверный запрос"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Failure 403 {object} errorResponse "Доступ запрещен"
@@ -307,8 +434,18 @@ func (h *BikeHandler) UpdateBike(c *gin.Context) {
 	h.logger.Info("Bike updated successfully", map[string]interface{}{
 		"bike_id": bikeID,
 	})
+	response := UpdateBikeResponse{
+		BikeID:    updatedBike.BikeID,
+		UserID:    updatedBike.UserID,
+		BikeName:  updatedBike.BikeName,
+		Model:     updatedBike.Model,
+		Type:      string(updatedBike.Type),
+		Year:      updatedBike.Year,
+		Mileage:   updatedBike.Mileage,
+		UpdatedAt: updatedBike.UpdatedAt,
+	}
 
-	newSuccessResponse(c, http.StatusOK, "Bike updated successfully", updatedBike)
+	c.JSON(http.StatusOK, response)
 }
 
 // @Summary Удалить байк
@@ -318,7 +455,7 @@ func (h *BikeHandler) UpdateBike(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path string true "ID байка" example:"jdk2-fsjmk-daslkdo2-321md-jsnlaljdn"
-// @Success 200 {object} successResponse "Байк удален"
+// @Success 200 {object} DeleteBikeResponse "Байк удален"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Failure 403 {object} errorResponse "Доступ запрещен"
 // @Router /bikes/{id} [delete]
@@ -374,7 +511,9 @@ func (h *BikeHandler) DeleteBike(c *gin.Context) {
 		"bike_id": bikeID,
 	})
 
-	newSuccessResponse(c, http.StatusOK, "Bike deleted successfully", nil)
+	c.JSON(http.StatusOK, DeleteBikeResponse{
+		Message: "Bike deleted successfully",
+	})
 }
 
 // @Summary Получить байк с компонентами
@@ -384,7 +523,7 @@ func (h *BikeHandler) DeleteBike(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path string true "ID байка" example:"jdk2-fsjmk-daslkdo2-321md-jsnlaljdn"
-// @Success 200 {object} successResponse "Байк с компонентами"
+// @Success 200 {object} GetBikeWithComponentsResponse "Байк с компонентами"
 // @Failure 401 {object} errorResponse "Не авторизован"
 // @Failure 403 {object} errorResponse "Доступ запрещен"
 // @Failure 404 {object} errorResponse "Байк не найден"
@@ -426,8 +565,36 @@ func (h *BikeHandler) GetBikeWithComponents(c *gin.Context) {
 		newErrorResponse(c, http.StatusForbidden, "Access denied")
 		return
 	}
+	componentInfos := make([]ComponentInfo, len(bike.Components))
+	for i, comp := range bike.Components {
+		componentInfos[i] = ComponentInfo{
+			ID:               comp.ID,
+			BikeID:           comp.BikeID,
+			Name:             string(comp.Name),
+			Brand:            comp.Brand,
+			Model:            comp.Model,
+			InstalledAt:      comp.InstalledAt,
+			InstalledMileage: comp.InstalledMileage,
+			MaxMileage:       comp.MaxMileage,
+			CreatedAt:        comp.CreatedAt,
+			UpdatedAt:        comp.UpdatedAt,
+		}
+	}
 
-	newSuccessResponse(c, http.StatusOK, "Bike with components found", bike)
+	response := GetBikeWithComponentsResponse{
+		BikeID:     bike.BikeID,
+		UserID:     bike.UserID,
+		BikeName:   bike.BikeName,
+		Model:      bike.Model,
+		Type:       string(bike.Type),
+		Year:       bike.Year,
+		Mileage:    bike.Mileage,
+		Components: componentInfos,
+		CreatedAt:  bike.CreatedAt,
+		UpdatedAt:  bike.UpdatedAt,
+	}
+
+	c.JSON(http.StatusOK, response)
 }
 
 // @Summary Получить байк с пользователем
@@ -437,9 +604,9 @@ func (h *BikeHandler) GetBikeWithComponents(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path string true "ID байка" example:"3fa85f64-5717-4562-b3fc-2c963f66afa6"
-// @Success 200 {object} http.successResponse{data=http.BikeWithUserResponse} "Байк с пользователем"
-// @Failure 401 {object} http.errorResponse "Не авторизован"
-// @Failure 404 {object} http.errorResponse "Байк не найден"
+// @Success 200 {object} GetBikeWithUserResponse "Байк с пользователем"
+// @Failure 401 {object} errorResponse "Не авторизован"
+// @Failure 404 {object} errorResponse "Байк не найден"
 // @Router /bikes/{id}/with-user [get]
 func (h *BikeHandler) GetBikeWithUser(c *gin.Context) {
 	start := time.Now()
@@ -459,7 +626,6 @@ func (h *BikeHandler) GetBikeWithUser(c *gin.Context) {
 		return
 	}
 
-	// === Получаем байк ===
 	bike, err := h.bikeService.GetBikeByID(c.Request.Context(), bikeID)
 	if err != nil {
 		h.logger.Error("Failed to get bike", map[string]interface{}{
@@ -480,12 +646,10 @@ func (h *BikeHandler) GetBikeWithUser(c *gin.Context) {
 		return
 	}
 
-	// === Вызов user-service ===
 	params := users.NewGetUsersIDParams()
 	params.ID = bike.UserID.String()
 	params.Context = c.Request.Context()
 
-	// Передаём токен
 	authHeader := c.GetHeader("Authorization")
 	var authInfo runtime.ClientAuthInfoWriter
 	if authHeader != "" {
@@ -493,37 +657,31 @@ func (h *BikeHandler) GetBikeWithUser(c *gin.Context) {
 		authInfo = httptransport.BearerToken(token)
 	}
 
-	userResp, err := h.userClient.Users.GetUsersID(params, authInfo)
-	var user *models.DomainUser
+	var userResp *models.HTTPGetUserResponse
 
+	resp, err := h.userClient.Users.GetUsersID(params, authInfo)
 	if err != nil {
 		h.logger.Warn("Failed to get user from user-service", map[string]interface{}{
 			"error":   err.Error(),
 			"user_id": bike.UserID.String(),
 		})
-		user = nil
-	} else if userResp != nil && userResp.Payload != nil && userResp.Payload.Data != nil {
-		if data, ok := userResp.Payload.Data.(*models.DomainUser); ok {
-			user = data
-			user.Password = nil
-		} else {
-			h.logger.Warn("Unexpected data type from user-service", map[string]interface{}{
-				"expected": "*models.DomainUser",
-				"got":      fmt.Sprintf("%T", userResp.Payload.Data),
-			})
-			user = nil
-		}
+		userResp = nil
 	} else {
-		user = nil
+		userResp = resp.Payload
 	}
 
-	// === Ответ ===
-	response := BikeWithUserResponse{
-		BikeID:  bike.BikeID.String(),
-		Model:   bike.Model,
-		Mileage: bike.Mileage,
-		User:    user, // ← Заполняем!
+	response := GetBikeWithUserResponse{
+		BikeID:    bike.BikeID,
+		UserID:    bike.UserID,
+		BikeName:  bike.BikeName,
+		Model:     bike.Model,
+		Type:      string(bike.Type),
+		Year:      bike.Year,
+		Mileage:   bike.Mileage,
+		User:      userResp,
+		CreatedAt: bike.CreatedAt,
+		UpdatedAt: bike.UpdatedAt,
 	}
 
-	newSuccessResponse(c, http.StatusOK, "Bike with user found", response)
+	c.JSON(http.StatusOK, response)
 }
