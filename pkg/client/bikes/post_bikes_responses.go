@@ -59,7 +59,7 @@ PostBikesCreated describes a response with status code 201, with default header 
 Байк создан
 */
 type PostBikesCreated struct {
-	Payload *models.HTTPSuccessResponse
+	Payload *models.HTTPCreateBikeResponse
 }
 
 // IsSuccess returns true when this post bikes created response has a 2xx status code
@@ -102,13 +102,13 @@ func (o *PostBikesCreated) String() string {
 	return fmt.Sprintf("[POST /bikes][%d] postBikesCreated %s", 201, payload)
 }
 
-func (o *PostBikesCreated) GetPayload() *models.HTTPSuccessResponse {
+func (o *PostBikesCreated) GetPayload() *models.HTTPCreateBikeResponse {
 	return o.Payload
 }
 
 func (o *PostBikesCreated) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HTTPSuccessResponse)
+	o.Payload = new(models.HTTPCreateBikeResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {

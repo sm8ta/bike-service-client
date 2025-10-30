@@ -12,8 +12,6 @@ import (
 	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/domain"
 	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/ports"
 	"github.com/sm8ta/webike_bike_microservice_nikita/internal/core/services"
-	"github.com/sm8ta/webike_user_microservice_nikita/models"
-	user_models "github.com/sm8ta/webike_user_microservice_nikita/models"
 	user_client "github.com/sm8ta/webike_user_microservice_nikita/pkg/client"
 	"github.com/sm8ta/webike_user_microservice_nikita/pkg/client/users"
 )
@@ -118,17 +116,27 @@ type ComponentInfo struct {
 	UpdatedAt        time.Time `json:"updated_at"`
 }
 
+type UserResponseInfo struct {
+	ID          string    `json:"id"`
+	Name        string    `json:"name"`
+	Email       string    `json:"email"`
+	DateOfBirth string    `json:"date_of_birth"`
+	Role        string    `json:"role"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
+}
+
 type GetBikeWithUserResponse struct {
-	BikeID    uuid.UUID                        `json:"bike_id"`
-	UserID    uuid.UUID                        `json:"user_id"`
-	BikeName  string                           `json:"bike_name"`
-	Model     string                           `json:"model"`
-	Type      string                           `json:"type"`
-	Year      int                              `json:"year"`
-	Mileage   int                              `json:"mileage"`
-	User      *user_models.HTTPGetUserResponse `json:"user,omitempty"`
-	CreatedAt time.Time                        `json:"created_at"`
-	UpdatedAt time.Time                        `json:"updated_at"`
+	BikeID    uuid.UUID         `json:"bike_id"`
+	UserID    uuid.UUID         `json:"user_id"`
+	BikeName  string            `json:"bike_name"`
+	Model     string            `json:"model"`
+	Type      string            `json:"type"`
+	Year      int               `json:"year"`
+	Mileage   int               `json:"mileage"`
+	User      *UserResponseInfo `json:"user,omitempty"`
+	CreatedAt time.Time         `json:"created_at"`
+	UpdatedAt time.Time         `json:"updated_at"`
 }
 
 func NewBikeHandler(
@@ -657,7 +665,7 @@ func (h *BikeHandler) GetBikeWithUser(c *gin.Context) {
 		authInfo = httptransport.BearerToken(token)
 	}
 
-	var userResp *models.HTTPGetUserResponse
+	var userInfo *UserResponseInfo
 
 	resp, err := h.userClient.Users.GetUsersID(params, authInfo)
 	if err != nil {
@@ -665,9 +673,18 @@ func (h *BikeHandler) GetBikeWithUser(c *gin.Context) {
 			"error":   err.Error(),
 			"user_id": bike.UserID.String(),
 		})
-		userResp = nil
-	} else {
-		userResp = resp.Payload
+		userInfo = nil
+	} else if resp != nil && resp.Payload != nil {
+		// Маппинг из user_models.HTTPGetUserResponse в UserResponseInfo
+		userInfo = &UserResponseInfo{
+			ID:          resp.Payload.ID,
+			Name:        resp.Payload.Name,
+			Email:       resp.Payload.Email,
+			DateOfBirth: resp.Payload.DateOfBirth,
+			Role:        resp.Payload.Role,
+			CreatedAt:   resp.Payload.CreatedAt,
+			UpdatedAt:   resp.Payload.UpdatedAt,
+		}
 	}
 
 	response := GetBikeWithUserResponse{
@@ -678,7 +695,7 @@ func (h *BikeHandler) GetBikeWithUser(c *gin.Context) {
 		Type:      string(bike.Type),
 		Year:      bike.Year,
 		Mileage:   bike.Mileage,
-		User:      userResp,
+		User:      userInfo, // ← используем свою структуру
 		CreatedAt: bike.CreatedAt,
 		UpdatedAt: bike.UpdatedAt,
 	}

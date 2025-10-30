@@ -15,10 +15,10 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-// DomainBike domain bike
+// HTTPGetBikeWithComponentsResponse http get bike with components response
 //
-// swagger:model domain.Bike
-type DomainBike struct {
+// swagger:model http.GetBikeWithComponentsResponse
+type HTTPGetBikeWithComponentsResponse struct {
 
 	// bike id
 	BikeID string `json:"bike_id,omitempty"`
@@ -27,7 +27,7 @@ type DomainBike struct {
 	BikeName string `json:"bike_name,omitempty"`
 
 	// components
-	Components []*DomainComponent `json:"components"`
+	Components []*HTTPComponentInfo `json:"components"`
 
 	// created at
 	CreatedAt string `json:"created_at,omitempty"`
@@ -39,7 +39,7 @@ type DomainBike struct {
 	Model string `json:"model,omitempty"`
 
 	// type
-	Type DomainBikeType `json:"type,omitempty"`
+	Type string `json:"type,omitempty"`
 
 	// updated at
 	UpdatedAt string `json:"updated_at,omitempty"`
@@ -51,15 +51,11 @@ type DomainBike struct {
 	Year int64 `json:"year,omitempty"`
 }
 
-// Validate validates this domain bike
-func (m *DomainBike) Validate(formats strfmt.Registry) error {
+// Validate validates this http get bike with components response
+func (m *HTTPGetBikeWithComponentsResponse) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateComponents(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -69,7 +65,7 @@ func (m *DomainBike) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DomainBike) validateComponents(formats strfmt.Registry) error {
+func (m *HTTPGetBikeWithComponentsResponse) validateComponents(formats strfmt.Registry) error {
 	if swag.IsZero(m.Components) { // not required
 		return nil
 	}
@@ -99,36 +95,11 @@ func (m *DomainBike) validateComponents(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *DomainBike) validateType(formats strfmt.Registry) error {
-	if swag.IsZero(m.Type) { // not required
-		return nil
-	}
-
-	if err := m.Type.Validate(formats); err != nil {
-		ve := new(errors.Validation)
-		if stderrors.As(err, &ve) {
-			return ve.ValidateName("type")
-		}
-		ce := new(errors.CompositeError)
-		if stderrors.As(err, &ce) {
-			return ce.ValidateName("type")
-		}
-
-		return err
-	}
-
-	return nil
-}
-
-// ContextValidate validate this domain bike based on the context it is used
-func (m *DomainBike) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+// ContextValidate validate this http get bike with components response based on the context it is used
+func (m *HTTPGetBikeWithComponentsResponse) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.contextValidateComponents(ctx, formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.contextValidateType(ctx, formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -138,7 +109,7 @@ func (m *DomainBike) ContextValidate(ctx context.Context, formats strfmt.Registr
 	return nil
 }
 
-func (m *DomainBike) contextValidateComponents(ctx context.Context, formats strfmt.Registry) error {
+func (m *HTTPGetBikeWithComponentsResponse) contextValidateComponents(ctx context.Context, formats strfmt.Registry) error {
 
 	for i := 0; i < len(m.Components); i++ {
 
@@ -167,30 +138,8 @@ func (m *DomainBike) contextValidateComponents(ctx context.Context, formats strf
 	return nil
 }
 
-func (m *DomainBike) contextValidateType(ctx context.Context, formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Type) { // not required
-		return nil
-	}
-
-	if err := m.Type.ContextValidate(ctx, formats); err != nil {
-		ve := new(errors.Validation)
-		if stderrors.As(err, &ve) {
-			return ve.ValidateName("type")
-		}
-		ce := new(errors.CompositeError)
-		if stderrors.As(err, &ce) {
-			return ce.ValidateName("type")
-		}
-
-		return err
-	}
-
-	return nil
-}
-
 // MarshalBinary interface implementation
-func (m *DomainBike) MarshalBinary() ([]byte, error) {
+func (m *HTTPGetBikeWithComponentsResponse) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -198,8 +147,8 @@ func (m *DomainBike) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *DomainBike) UnmarshalBinary(b []byte) error {
-	var res DomainBike
+func (m *HTTPGetBikeWithComponentsResponse) UnmarshalBinary(b []byte) error {
+	var res HTTPGetBikeWithComponentsResponse
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

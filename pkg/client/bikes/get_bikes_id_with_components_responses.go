@@ -65,7 +65,7 @@ GetBikesIDWithComponentsOK describes a response with status code 200, with defau
 Байк с компонентами
 */
 type GetBikesIDWithComponentsOK struct {
-	Payload *models.HTTPSuccessResponse
+	Payload *models.HTTPGetBikeWithComponentsResponse
 }
 
 // IsSuccess returns true when this get bikes Id with components o k response has a 2xx status code
@@ -108,13 +108,13 @@ func (o *GetBikesIDWithComponentsOK) String() string {
 	return fmt.Sprintf("[GET /bikes/{id}/with-components][%d] getBikesIdWithComponentsOK %s", 200, payload)
 }
 
-func (o *GetBikesIDWithComponentsOK) GetPayload() *models.HTTPSuccessResponse {
+func (o *GetBikesIDWithComponentsOK) GetPayload() *models.HTTPGetBikeWithComponentsResponse {
 	return o.Payload
 }
 
 func (o *GetBikesIDWithComponentsOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HTTPSuccessResponse)
+	o.Payload = new(models.HTTPGetBikeWithComponentsResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {

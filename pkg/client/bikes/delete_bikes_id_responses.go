@@ -59,7 +59,7 @@ DeleteBikesIDOK describes a response with status code 200, with default header v
 Байк удален
 */
 type DeleteBikesIDOK struct {
-	Payload *models.HTTPSuccessResponse
+	Payload *models.HTTPDeleteBikeResponse
 }
 
 // IsSuccess returns true when this delete bikes Id o k response has a 2xx status code
@@ -102,13 +102,13 @@ func (o *DeleteBikesIDOK) String() string {
 	return fmt.Sprintf("[DELETE /bikes/{id}][%d] deleteBikesIdOK %s", 200, payload)
 }
 
-func (o *DeleteBikesIDOK) GetPayload() *models.HTTPSuccessResponse {
+func (o *DeleteBikesIDOK) GetPayload() *models.HTTPDeleteBikeResponse {
 	return o.Payload
 }
 
 func (o *DeleteBikesIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HTTPSuccessResponse)
+	o.Payload = new(models.HTTPDeleteBikeResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {

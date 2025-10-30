@@ -65,7 +65,7 @@ PutBikesIDOK describes a response with status code 200, with default header valu
 Байк обновлен
 */
 type PutBikesIDOK struct {
-	Payload *models.DomainBike
+	Payload *models.HTTPUpdateBikeResponse
 }
 
 // IsSuccess returns true when this put bikes Id o k response has a 2xx status code
@@ -108,13 +108,13 @@ func (o *PutBikesIDOK) String() string {
 	return fmt.Sprintf("[PUT /bikes/{id}][%d] putBikesIdOK %s", 200, payload)
 }
 
-func (o *PutBikesIDOK) GetPayload() *models.DomainBike {
+func (o *PutBikesIDOK) GetPayload() *models.HTTPUpdateBikeResponse {
 	return o.Payload
 }
 
 func (o *PutBikesIDOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.DomainBike)
+	o.Payload = new(models.HTTPUpdateBikeResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {

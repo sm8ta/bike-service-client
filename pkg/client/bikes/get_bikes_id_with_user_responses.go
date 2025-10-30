@@ -37,12 +37,6 @@ func (o *GetBikesIDWithUserReader) ReadResponse(response runtime.ClientResponse,
 			return nil, err
 		}
 		return nil, result
-	case 403:
-		result := NewGetBikesIDWithUserForbidden()
-		if err := result.readResponse(response, consumer, o.formats); err != nil {
-			return nil, err
-		}
-		return nil, result
 	case 404:
 		result := NewGetBikesIDWithUserNotFound()
 		if err := result.readResponse(response, consumer, o.formats); err != nil {
@@ -65,7 +59,7 @@ GetBikesIDWithUserOK describes a response with status code 200, with default hea
 Байк с пользователем
 */
 type GetBikesIDWithUserOK struct {
-	Payload *models.HTTPSuccessResponse
+	Payload *models.HTTPGetBikeWithUserResponse
 }
 
 // IsSuccess returns true when this get bikes Id with user o k response has a 2xx status code
@@ -108,13 +102,13 @@ func (o *GetBikesIDWithUserOK) String() string {
 	return fmt.Sprintf("[GET /bikes/{id}/with-user][%d] getBikesIdWithUserOK %s", 200, payload)
 }
 
-func (o *GetBikesIDWithUserOK) GetPayload() *models.HTTPSuccessResponse {
+func (o *GetBikesIDWithUserOK) GetPayload() *models.HTTPGetBikeWithUserResponse {
 	return o.Payload
 }
 
 func (o *GetBikesIDWithUserOK) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
-	o.Payload = new(models.HTTPSuccessResponse)
+	o.Payload = new(models.HTTPGetBikeWithUserResponse)
 
 	// response payload
 	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
@@ -183,76 +177,6 @@ func (o *GetBikesIDWithUserUnauthorized) GetPayload() *models.HTTPErrorResponse 
 }
 
 func (o *GetBikesIDWithUserUnauthorized) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
-
-	o.Payload = new(models.HTTPErrorResponse)
-
-	// response payload
-	if err := consumer.Consume(response.Body(), o.Payload); err != nil && !stderrors.Is(err, io.EOF) {
-		return err
-	}
-
-	return nil
-}
-
-// NewGetBikesIDWithUserForbidden creates a GetBikesIDWithUserForbidden with default headers values
-func NewGetBikesIDWithUserForbidden() *GetBikesIDWithUserForbidden {
-	return &GetBikesIDWithUserForbidden{}
-}
-
-/*
-GetBikesIDWithUserForbidden describes a response with status code 403, with default header values.
-
-Доступ запрещен
-*/
-type GetBikesIDWithUserForbidden struct {
-	Payload *models.HTTPErrorResponse
-}
-
-// IsSuccess returns true when this get bikes Id with user forbidden response has a 2xx status code
-func (o *GetBikesIDWithUserForbidden) IsSuccess() bool {
-	return false
-}
-
-// IsRedirect returns true when this get bikes Id with user forbidden response has a 3xx status code
-func (o *GetBikesIDWithUserForbidden) IsRedirect() bool {
-	return false
-}
-
-// IsClientError returns true when this get bikes Id with user forbidden response has a 4xx status code
-func (o *GetBikesIDWithUserForbidden) IsClientError() bool {
-	return true
-}
-
-// IsServerError returns true when this get bikes Id with user forbidden response has a 5xx status code
-func (o *GetBikesIDWithUserForbidden) IsServerError() bool {
-	return false
-}
-
-// IsCode returns true when this get bikes Id with user forbidden response a status code equal to that given
-func (o *GetBikesIDWithUserForbidden) IsCode(code int) bool {
-	return code == 403
-}
-
-// Code gets the status code for the get bikes Id with user forbidden response
-func (o *GetBikesIDWithUserForbidden) Code() int {
-	return 403
-}
-
-func (o *GetBikesIDWithUserForbidden) Error() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /bikes/{id}/with-user][%d] getBikesIdWithUserForbidden %s", 403, payload)
-}
-
-func (o *GetBikesIDWithUserForbidden) String() string {
-	payload, _ := json.Marshal(o.Payload)
-	return fmt.Sprintf("[GET /bikes/{id}/with-user][%d] getBikesIdWithUserForbidden %s", 403, payload)
-}
-
-func (o *GetBikesIDWithUserForbidden) GetPayload() *models.HTTPErrorResponse {
-	return o.Payload
-}
-
-func (o *GetBikesIDWithUserForbidden) readResponse(response runtime.ClientResponse, consumer runtime.Consumer, formats strfmt.Registry) error {
 
 	o.Payload = new(models.HTTPErrorResponse)
 
